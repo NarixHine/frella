@@ -8,7 +8,8 @@ export default function Main({ isCentered, ...props }: HTMLAttributes<HTMLDivEle
     return <main
         style={{
             minHeight: height ? height - 80 : 'calc(100vh - 80px)',
-            maxWidth: 1000,
+            maxWidth: 900,
+            margin: '0 auto',
             padding: '1rem',
             ...(isCentered ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
         }}

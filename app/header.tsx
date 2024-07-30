@@ -12,7 +12,7 @@ import { AiOutlineLogin } from 'react-icons/ai'
 
 export default function Header() {
     const { userId } = auth()
-    return <Navbar position='sticky' isBordered className='bg-transparent'>
+    return <Navbar position='sticky' isBordered isBlurred>
         <NavbarBrand className='space-x-2'>
             <Link
                 className={`text-xl font-bold ${ubuntu.className}`}

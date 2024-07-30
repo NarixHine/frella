@@ -1,0 +1,19 @@
+{
+  "id": "mig_cqkcano9nfcks0e81nkg",
+  "parentID": "mig_cqk8l7qi1th0q139eu00",
+  "checksum": "1:f6cb9760ab728cfcf5414c9ff998e880cd6fb53959f5f66908c288b722481ee2",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "user",
+          "type": "link",
+          "link": {
+            "table": "users"
+          }
+        },
+        "table": "frellas"
+      }
+    }
+  ]
+}

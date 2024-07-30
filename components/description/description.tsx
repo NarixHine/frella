@@ -4,7 +4,7 @@ import { Button, Textarea } from '@nextui-org/react'
 import { useState } from 'react'
 import { CiEdit } from 'react-icons/ci'
 import { LiaSave } from 'react-icons/lia'
-import save from './actions'
+import saveDescription from './actions'
 
 export default function Description({ description: initialDescription, isEditable }: {
     description: string,
@@ -16,6 +16,7 @@ export default function Description({ description: initialDescription, isEditabl
         {
             isEditing
                 ? <Textarea
+                    placeholder='Enter some description ...'
                     value={description}
                     onValueChange={setDescription}
                     className='w-full mb-1'
@@ -29,7 +30,7 @@ export default function Description({ description: initialDescription, isEditabl
         {isEditable && <Button
             onClick={() => {
                 if (isEditing) {
-                    save({ description })
+                    saveDescription({ description })
                 }
                 setIsEditing(!isEditing)
             }}

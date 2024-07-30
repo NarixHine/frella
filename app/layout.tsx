@@ -19,7 +19,7 @@ export default function RootLayout({
   return <html lang='en'>
     <body className={inter.className}>
       <Providers>
-        <div className='flex flex-col w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px]'>
+        <div className='flex flex-col w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#2D2E2F_1px,transparent_1px)] [background-size:20px_20px]'>
           <Header></Header>
           {children}
         </div>

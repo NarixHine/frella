@@ -1,0 +1,11 @@
+{
+  "id": "mig_cqk6886j6qdemmf24a20",
+  "checksum": "1:c5a9ad3dcfff3889f6556f56e77a18799993ec054c0d12a1d7d19d64f2d11dab",
+  "operations": [
+    {
+      "addTable": {
+        "table": "frellas"
+      }
+    }
+  ]
+}

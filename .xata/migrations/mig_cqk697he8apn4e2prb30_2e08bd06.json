@@ -1,0 +1,18 @@
+{
+  "id": "mig_cqk697he8apn4e2prb30",
+  "parentID": "mig_cqk6886j6qdemmf24a20",
+  "checksum": "1:2e08bd0699eacb99deefe638a58d77f33a265e313db2ba56bcf25826f422479e",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "content",
+          "type": "text",
+          "notNull": true,
+          "defaultValue": ""
+        },
+        "table": "frellas"
+      }
+    }
+  ]
+}

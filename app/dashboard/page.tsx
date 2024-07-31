@@ -4,7 +4,10 @@ import SSRFeed from '@/components/feed'
 import Main from '@/components/main'
 import SSRProfile from '@/components/profile'
 import Profile from '@/components/profile/profile'
+import { Metadata } from 'next'
 import { Suspense } from 'react'
+
+export const metadata: Metadata = { title: 'Dashboard' }
 
 export default function DashboardPage() {
     return <Main className='flex flex-col-reverse w-full md:flex-row md:space-x-12'>

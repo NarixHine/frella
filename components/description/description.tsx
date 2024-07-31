@@ -26,11 +26,11 @@ export default function Description({ description: initialDescription, isEditabl
                     editable={isEditing}
                     onUpdate={({ editor }) => { setDescription(editor.getHTML()) }}
                 ></Tiptap>
-                : <article className='prose leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
+                : <article className='prose dark:prose-invert leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
         }
 
         {isEditable && <Button
-            onClick={() => {
+            onPress={() => {
                 if (isEditing) {
                     saveDescription({ description })
                 }
@@ -44,7 +44,7 @@ export default function Description({ description: initialDescription, isEditabl
         ></Button>}
 
         {isEditable && <Button
-            onClick={async () => {
+            onPress={async () => {
                 await toggleUserFeedVisibility({ isPublic: !isPublic })
                 setIsPublic(!isPublic)
             }}

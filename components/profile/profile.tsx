@@ -17,7 +17,7 @@ export default function Profile({ src, handle, name, isLoading, isCompact }: {
             {
                 isLoading
                     ? <Skeleton isLoaded={Boolean(name)} className='rounded h-9 w-44 mb-2'></Skeleton>
-                    : <h1 className={isCompact ? 'text-md font-semibold' : 'text-4xl font-bold text-primary-400'}>{name}</h1>
+                    : <h1 className={isCompact ? 'text-md font-semibold' : 'text-4xl font-bold text-primary-400 dark:text-primary-500'}>{name}</h1>
             }
             {
                 isLoading

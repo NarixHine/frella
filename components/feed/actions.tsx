@@ -3,6 +3,7 @@
 import authAndGetFrella, { getUserRec } from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
 import { getXataClient } from '@/lib/xata'
+import { auth } from '@clerk/nextjs/server'
 
 const xata = getXataClient()
 
@@ -24,23 +25,49 @@ export async function toggleFrellaVisibility({ id, isPublic }: { id: string, isP
     await frella.update({ isPublic })
 }
 
-export async function loadFrellas({ cursor }: { cursor?: string }) {
-    const pagination = await xata.db.frellas.getPaginated({
+export async function loadInitialFrellas({ userId = auth().userId }: { userId?: string | null } = {}) {
+    if (!userId) {
+        throw new Error('User not found')
+    }
+
+    // TODO: CHECK IF IS PUBLIC
+    const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
+        'user.userId': userId
+    }).getPaginated({
         pagination: {
-            size: 5,
-            after: cursor
+            size: 5
         }
     })
     return {
-        frellas: pagination.records.map(({ id, content, isPublic }) => ({
+        frellas: records.map(({ id, content, isPublic }) => ({
             id,
             content,
             isPublic,
             isEditable: true,
             isEditing: false,
         })),
-        cursor: pagination.meta.page.cursor,
-        more: pagination.meta.page.more
+        cursor: meta.page.cursor,
+        more: meta.page.more
+    }
+}
+
+export async function loadFrellas({ cursor }: { cursor?: string }) {
+    const { records, meta } = await xata.db.frellas.getPaginated({
+        pagination: {
+            size: 5,
+            after: cursor
+        }
+    })
+    return {
+        frellas: records.map(({ id, content, isPublic }) => ({
+            id,
+            content,
+            isPublic,
+            isEditable: true,
+            isEditing: false,
+        })),
+        cursor: meta.page.cursor,
+        more: meta.page.more
     }
 }
 

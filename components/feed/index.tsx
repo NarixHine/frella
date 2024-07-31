@@ -1,6 +1,7 @@
 import { currentUser } from '@clerk/nextjs/server'
 import Feed from './feed'
 import { getXataClient } from '@/lib/xata'
+import { loadInitialFrellas } from './actions'
 
 const xata = getXataClient()
 
@@ -12,16 +13,7 @@ export default async function SSRFeed() {
         handle: user?.username
     }
 
-    // TODO: CHECK IF IS PUBLIC
-    const frellas = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
-        'user.userId': user?.id
-    }).getPaginated({
-        pagination: {
-            size: 5
-        }
-    })
-
-    const { cursor, more } = frellas.meta.page
+    const { frellas, cursor, more } = await loadInitialFrellas()
 
     return <Feed cursor={cursor} more={more} frellas={
         [{
@@ -31,12 +23,8 @@ export default async function SSRFeed() {
             isEditing: true,
             isPublic: true,
             ...profile
-        }].concat(frellas.records.map(({ id, content, isPublic }) => ({
-            id,
-            content,
-            isPublic,
-            isEditable: true,
-            isEditing: false,
+        }].concat(frellas.map((props) => ({
+            ...props,
             ...profile,
         })))
     }></Feed>

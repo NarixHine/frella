@@ -1,7 +1,7 @@
-import { currentUser } from '@clerk/nextjs/server'
 import Profile from './profile'
+import getUserProfile from './actions'
 
 export default async function SSRProfile() {
-    const user = await currentUser()
-    return <Profile src={user?.imageUrl!} name={user?.fullName!} handle={user?.username!}></Profile>
+    const profile = await getUserProfile()
+    return <Profile {...profile}></Profile>
 }

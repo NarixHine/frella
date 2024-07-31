@@ -13,6 +13,7 @@
     "@clerk/themes": "^2.1.14",
     "@nextui-org/react": "^2.4.6",
     "@tanstack/react-query": "^5.51.16",
+    "@tiptap/extension-link": "^2.5.8",
     "@tiptap/pm": "^2.5.8",
     "@tiptap/react": "^2.5.8",
     "@tiptap/starter-kit": "^2.5.8",

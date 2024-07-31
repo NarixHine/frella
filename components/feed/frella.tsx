@@ -47,12 +47,12 @@ export default function Frella({
                     editable={isEditing}
                     onUpdate={({ editor }) => { setContent(editor.getHTML()) }}
                 ></Tiptap>
-                : <article className='my-4 prose' dangerouslySetInnerHTML={{ __html: content }}></article>
+                : <article className='my-4 prose dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
         }
 
         <div className='flex space-x-1'>
             {isEditable && <Button
-                onClick={async () => {
+                onPress={async () => {
                     if (isEditing) {
                         setIsSaving(true)
                         await saveFrella({ content, id, isPublic, createNew })
@@ -69,7 +69,7 @@ export default function Frella({
             ></Button>}
 
             {isPublic && <Button
-                onClick={() => {
+                onPress={() => {
                     navigator.clipboard.writeText(`https://${profileProps.handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/${id}`)
                 }}
                 variant='light'
@@ -80,7 +80,7 @@ export default function Frella({
             ></Button>}
 
             {isEditable && <Button
-                onClick={async () => {
+                onPress={async () => {
                     if (!createNew)
                         await toggleFrellaVisibility({ id, isPublic: !isPublic })
                     setIsPublic(!isPublic)
@@ -93,7 +93,7 @@ export default function Frella({
             ></Button>}
 
             {isEditable && !createNew && <Button
-                onClick={async () => {
+                onPress={async () => {
                     await deleteFrella({ id })
                     setIsDeleted(true)
                 }}

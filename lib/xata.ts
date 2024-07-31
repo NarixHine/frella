@@ -12,6 +12,7 @@ const tables = [
     columns: [
       { name: "content", type: "text", notNull: true, defaultValue: "" },
       { name: "user", type: "link", link: { table: "users" } },
+      { name: "isPublic", type: "bool", notNull: true, defaultValue: "true" },
     ],
   },
   {
@@ -19,6 +20,7 @@ const tables = [
     columns: [
       { name: "description", type: "text" },
       { name: "userId", type: "string" },
+      { name: "isPublic", type: "bool", notNull: true, defaultValue: "true" },
     ],
     revLinks: [{ column: "user", table: "frellas" }],
   },

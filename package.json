@@ -12,6 +12,10 @@
     "@clerk/nextjs": "^5.2.8",
     "@clerk/themes": "^2.1.14",
     "@nextui-org/react": "^2.4.6",
+    "@tanstack/react-query": "^5.51.16",
+    "@tiptap/pm": "^2.5.8",
+    "@tiptap/react": "^2.5.8",
+    "@tiptap/starter-kit": "^2.5.8",
     "@xata.io/client": "^0.30.0",
     "framer-motion": "^11.3.19",
     "next": "14.2.5",
@@ -20,9 +24,11 @@
     "react-div-100vh": "^0.7.0",
     "react-dom": "^18",
     "react-icons": "^5.2.1",
-    "react-use-system-color-mode": "^1.0.4"
+    "react-use-system-color-mode": "^1.0.4",
+    "use-pull-to-refresh": "^2.3.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

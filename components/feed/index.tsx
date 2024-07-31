@@ -11,24 +11,33 @@ export default async function SSRFeed() {
         name: user?.fullName,
         handle: user?.username
     }
-    const frellas = await xata.db.frellas.select(['user.userId', 'content']).sort('xata.createdAt', 'desc').filter({
+
+    // TODO: CHECK IF IS PUBLIC
+    const frellas = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
         'user.userId': user?.id
     }).getPaginated({
         pagination: {
             size: 5
         }
     })
-    return <Feed frellas={[{
-        id: crypto.randomUUID(),
-        content: '',
-        isEditable: true,
-        isEditing: true,
-        ...profile
-    }].concat(frellas.records.map(({ id, content }) => ({
-        id,
-        content,
-        ...profile,
-        isEditable: true,
-        isEditing: false
-    })))}></Feed>
+
+    const { cursor, more } = frellas.meta.page
+
+    return <Feed cursor={cursor} more={more} frellas={
+        [{
+            id: crypto.randomUUID(),
+            content: ``,
+            isEditable: true,
+            isEditing: true,
+            isPublic: true,
+            ...profile
+        }].concat(frellas.records.map(({ id, content, isPublic }) => ({
+            id,
+            content,
+            isPublic,
+            isEditable: true,
+            isEditing: false,
+            ...profile,
+        })))
+    }></Feed>
 }

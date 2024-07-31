@@ -1,32 +1,34 @@
 'use client'
 
-import { Button, Textarea } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { useState } from 'react'
 import { CiEdit } from 'react-icons/ci'
 import { LiaSave } from 'react-icons/lia'
-import saveDescription from './actions'
+import saveDescription, { toggleUserFeedVisibility } from './actions'
+import { MdPublic, MdPublicOff } from 'react-icons/md'
+import Tiptap from '../tiptap'
 
-export default function Description({ description: initialDescription, isEditable }: {
+export default function Description({ description: initialDescription, isEditable, isPublic: initialIsPublic }: {
     description: string,
     isEditable: boolean,
+    isPublic: boolean
 }) {
+    const [isPublic, setIsPublic] = useState(initialIsPublic)
     const [isEditing, setIsEditing] = useState(false)
     const [description, setDescription] = useState(initialDescription)
+
     return <div className='py-4'>
         {
             isEditing
-                ? <Textarea
-                    placeholder='Enter some description ...'
-                    value={description}
-                    onValueChange={setDescription}
-                    className='w-full mb-1'
-                    minRows={3}
-                    maxRows={10}
-                ></Textarea>
-                : <p className='mb-2'>
-                    {description}
-                </p>
+                ? <Tiptap
+                    isTight
+                    content={description}
+                    editable={isEditing}
+                    onUpdate={({ editor }) => { setDescription(editor.getHTML()) }}
+                ></Tiptap>
+                : <article className='prose leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
         }
+
         {isEditable && <Button
             onClick={() => {
                 if (isEditing) {
@@ -37,6 +39,18 @@ export default function Description({ description: initialDescription, isEditabl
             variant='light'
             size='sm'
             startContent={isEditing ? <LiaSave></LiaSave> : <CiEdit></CiEdit>}
+            isIconOnly
+            className='text-lg rounded'
+        ></Button>}
+
+        {isEditable && <Button
+            onClick={async () => {
+                await toggleUserFeedVisibility({ isPublic: !isPublic })
+                setIsPublic(!isPublic)
+            }}
+            variant='light'
+            size='sm'
+            startContent={isPublic ? <MdPublic /> : <MdPublicOff />}
             isIconOnly
             className='text-lg rounded'
         ></Button>}

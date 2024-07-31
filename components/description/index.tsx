@@ -4,8 +4,8 @@ import { getUserRec } from '@/utils/auth'
 import { Skeleton } from '@nextui-org/react'
 
 export default async function SSRDescription() {
-    const { description, userId } = await getUserRec()
-    return <Description isEditable={userId === auth().userId} description={description ?? ''} />
+    const { description, userId, isPublic } = await getUserRec()
+    return <Description isPublic={isPublic} isEditable={userId === auth().userId} description={description ?? ''} />
 }
 
 export function DescriptionSkeleton() {

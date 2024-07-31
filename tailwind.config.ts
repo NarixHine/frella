@@ -19,15 +19,18 @@ const config: Config = {
 
   },
   darkMode: 'class',
-  plugins: [nextui({
-    themes: {
-      dark: {
-        colors: {
-          background: '#121212',
+  plugins: [
+    nextui({
+      themes: {
+        dark: {
+          colors: {
+            background: '#121212',
+          }
         }
       }
-    }
-  })]
+    }),
+    require('@tailwindcss/typography'),
+  ]
 }
 
 export default config

@@ -1,0 +1,18 @@
+{
+  "id": "mig_cql1bd8blep1fe81alig",
+  "parentID": "mig_cql1b9lp1ukl0l219utg",
+  "checksum": "1:09d77f2c79c3beb0e9ddcada986bd35e760a44c241f372efd35db23ad6267f97",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "isPublic",
+          "type": "bool",
+          "notNull": true,
+          "defaultValue": "true"
+        },
+        "table": "users"
+      }
+    }
+  ]
+}

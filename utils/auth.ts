@@ -8,7 +8,7 @@ export async function getUserRec({ userId = auth().userId }: { userId?: string |
         throw new Error('Unauthorized')
     }
 
-    const profile = await xata.db.users.select(['description', 'userId']).filter({
+    const profile = await xata.db.users.select(['description', 'userId', 'isPublic']).filter({
         userId
     }).getFirst()
     if (profile) {

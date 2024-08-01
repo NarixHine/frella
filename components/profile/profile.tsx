@@ -1,5 +1,6 @@
 import { Avatar, Skeleton } from '@nextui-org/react'
 import Link from 'next/link'
+import { RxExternalLink } from 'react-icons/rx'
 
 export default function Profile({ src, handle, name, isLoading, isCompact, hideInstructions }: {
     src?: string
@@ -14,19 +15,19 @@ export default function Profile({ src, handle, name, isLoading, isCompact, hideI
             !isCompact && !hideInstructions && <div className='opacity-40 mb-5 text-balance text-sm space-y-2'>
                 <p>
                     Change your name, handle (numbers and letters only) & avatar in&nbsp;
-                    <Link href={'/dashboard/profile'}>
-                        account settings
+                    <Link href={'/dashboard/profile'} className='text-nowrap'>
+                        account settings <RxExternalLink className='inline'></RxExternalLink>
                     </Link>
                 </p>
                 <p>
                     Where your frellas are live:&nbsp;
-                    <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold'>
-                        {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN}
+                    <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold text-nowrap'>
+                        {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <RxExternalLink className='inline'></RxExternalLink>
                     </Link>
                     <br></br>
-                    Timeline for embedding:&nbsp;
-                    <Link href={`https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold'>
-                        {handle}-embed.{process.env.NEXT_PUBLIC_BASE_DOMAIN}
+                    For embedding:&nbsp;
+                    <Link href={`https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold text-nowrap'>
+                        {handle}-embed.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <RxExternalLink className='inline'></RxExternalLink>
                     </Link>
                 </p>
             </div>

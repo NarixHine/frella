@@ -1,28 +1,33 @@
 import { Avatar, Skeleton } from '@nextui-org/react'
 import Link from 'next/link'
 
-export default function Profile({ src, handle, name, isLoading, isCompact }: {
+export default function Profile({ src, handle, name, isLoading, isCompact, hideInstructions }: {
     src?: string
     name?: string | null
     handle?: string | null
     isLoading?: boolean
     isCompact?: boolean
+    hideInstructions?: boolean
 }) {
     return <>
         {
-            !isCompact && <div className='opacity-40 mb-5 text-balance text-sm space-y-2'>
+            !isCompact && !hideInstructions && <div className='opacity-40 mb-5 text-balance text-sm space-y-2'>
                 <p>
-                    Change your name, handle & avatar in&nbsp;
-                    <Link href={'/dashboard/profile'} className='underline'>
+                    Change your name, handle (numbers and letters only) & avatar in&nbsp;
+                    <Link href={'/dashboard/profile'}>
                         account settings
-                    </Link>.
+                    </Link>
                 </p>
                 <p>
-                    Your frellas are live at&nbsp;
-                    <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono underline'>
-                        https://{handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN}/
+                    Where your frellas are live:&nbsp;
+                    <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold'>
+                        {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN}
                     </Link>
-                    .
+                    <br></br>
+                    Timeline for embedding:&nbsp;
+                    <Link href={`https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold'>
+                        {handle}-embed.{process.env.NEXT_PUBLIC_BASE_DOMAIN}
+                    </Link>
                 </p>
             </div>
         }

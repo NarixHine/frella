@@ -18,7 +18,7 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
     extensions: [StarterKit, Link],
     editorProps: {
       attributes: {
-        class: `prose dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
+        class: `prose ${isTight ? 'prose-p:my-0.5' : 'prose-p:my-2'} dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
       },
     },
     immediatelyRender: false,

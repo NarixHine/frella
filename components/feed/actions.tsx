@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
 import { cookies } from 'next/headers'
+import getHandle from '@/lib/routing'
 
 const xata = getXataClient()
 
@@ -42,9 +43,9 @@ export async function loadInitialFrellas({ userId = auth().userId }: { userId?: 
         throw new Error('User not found')
     }
 
-    // TODO: CHECK IF IS PUBLIC
     const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
-        'user.userId': userId
+        'user.userId': userId,
+        ...(getHandle() ? { isPublic: true } : {})
     }).getPaginated({
         pagination: {
             size: 5
@@ -55,7 +56,7 @@ export async function loadInitialFrellas({ userId = auth().userId }: { userId?: 
             id,
             content,
             isPublic,
-            isEditable: true,
+            isEditable: !getHandle(),
             isEditing: false,
         })),
         cursor: meta.page.cursor,
@@ -75,7 +76,7 @@ export async function loadFrellas({ cursor }: { cursor?: string }) {
             id,
             content,
             isPublic,
-            isEditable: true,
+            isEditable: !getHandle(),
             isEditing: false,
         })),
         cursor: meta.page.cursor,
@@ -86,4 +87,8 @@ export async function loadFrellas({ cursor }: { cursor?: string }) {
 export async function deleteFrella({ id }: { id: string }) {
     const frella = await authAndGetFrella({ id })
     await frella.delete()
+}
+
+export async function retrieveFrella({ id }: { id: string }) {
+    return await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).filter({ id }).getFirstOrThrow()
 }

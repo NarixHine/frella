@@ -5,27 +5,24 @@ import Main from '@/components/main'
 import SSRProfile from '@/components/profile'
 import Profile from '@/components/profile/profile'
 import { Metadata } from 'next'
-import { CookiesProvider } from 'next-client-cookies/server'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = { title: 'Dashboard' }
 
-export default function DashboardPage() {
-    return <CookiesProvider>
-        <Main className='flex flex-col-reverse w-full md:flex-row md:space-x-12'>
-            <section className='flex md:basis-3/5'>
-                <div className='flex-1'></div>
-                <SSRFeed></SSRFeed>
-            </section>
+export default function Dashboard() {
+    return <Main className='flex flex-col-reverse w-full md:flex-row md:space-x-12'>
+        <section className='flex md:basis-3/5'>
+            <div className='flex-1'></div>
+            <SSRFeed></SSRFeed>
+        </section>
 
-            <aside className='pt-5 md:basis-2/5 md:pt-20'>
-                <Suspense fallback={<Profile isLoading></Profile>}>
-                    <SSRProfile></SSRProfile>
-                </Suspense>
-                <Suspense fallback={<DescriptionSkeleton></DescriptionSkeleton>}>
-                    <SSRDescription></SSRDescription>
-                </Suspense>
-            </aside>
-        </Main>
-    </CookiesProvider>
+        <aside className='pt-5 md:basis-2/5 md:pt-20'>
+            <Suspense fallback={<Profile isLoading></Profile>}>
+                <SSRProfile></SSRProfile>
+            </Suspense>
+            <Suspense fallback={<DescriptionSkeleton></DescriptionSkeleton>}>
+                <SSRDescription></SSRDescription>
+            </Suspense>
+        </aside>
+    </Main>
 }

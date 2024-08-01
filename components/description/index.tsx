@@ -1,11 +1,11 @@
-import { auth } from '@clerk/nextjs/server'
 import Description from './description'
 import { getUserRec } from '@/utils/auth'
 import { Skeleton } from '@nextui-org/react'
+import getHandle from '@/lib/routing'
 
 export default async function SSRDescription() {
-    const { description, userId, isPublic } = await getUserRec()
-    return <Description isPublic={isPublic} isEditable={userId === auth().userId} description={description ?? ''} />
+    const { description, isPublic } = await getUserRec({ userId: getHandle() })
+    return <Description isPublic={isPublic} isEditable={!getHandle()} description={description ?? ''} />
 }
 
 export function DescriptionSkeleton() {

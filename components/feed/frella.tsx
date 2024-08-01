@@ -2,15 +2,16 @@
 
 import { useState } from 'react'
 import Profile from '../profile/profile'
-import { Button } from '@nextui-org/react'
+import { Button, Divider } from '@nextui-org/react'
 import { CiEdit } from 'react-icons/ci'
 import { LiaSave } from 'react-icons/lia'
 import saveFrella, { deleteFrella, toggleFrellaVisibility } from './actions'
 import { IoMdLink } from 'react-icons/io'
-import { MdDeleteOutline, MdOutlinePublish, MdPublic, MdPublicOff } from 'react-icons/md'
+import { MdOutlinePublish, MdPublic, MdPublicOff } from 'react-icons/md'
 import Tiptap from '../tiptap'
 import { useDebounce } from 'use-debounce'
-import { useCookies } from 'next-client-cookies'
+import Cookies from 'js-cookie'
+import { RiDeleteBinLine } from 'react-icons/ri'
 
 export type FrellaProps = {
     id: string
@@ -32,6 +33,7 @@ export default function Frella({
     ...profileProps
 }: Readonly<FrellaProps>) {
     const isCreatingNew = initialIsEditing
+    const isDeletable = isEditable && !isCreatingNew
 
     const [isEditing, setIsEditing] = useState(initialIsEditing)
     const [isPublic, setIsPublic] = useState(initialIsPublic)
@@ -39,9 +41,8 @@ export default function Frella({
     const [isDeleted, setIsDeleted] = useState(false)
     const [isSaving, setIsSaving] = useState(false)
 
-    const cookies = useCookies()
     const [save] = useDebounce(({ content }: { content: string }) => {
-        cookies.set('new-frella', JSON.stringify({ content }))
+        Cookies.set('new-frella', JSON.stringify({ content }))
     }, 1000)
 
     return !isDeleted && <div className={'flex flex-col border-default-900/10 bg-background/30 border-1 rounded-lg p-5'}>
@@ -58,7 +59,7 @@ export default function Frella({
                             save({ content: editor.getHTML() })
                     }}
                 ></Tiptap>
-                : <article className='my-4 prose dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
+                : <article className='my-3 prose prose-p:my-2 dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
         }
 
         <div className='flex space-x-1'>
@@ -107,14 +108,16 @@ export default function Frella({
                 className='text-lg rounded'
             ></Button>}
 
-            {isEditable && !isCreatingNew && <Button
+            {isDeletable && <div><Divider orientation='vertical'></Divider></div>}
+
+            {isDeletable && <Button
                 onPress={async () => {
                     await deleteFrella({ id })
                     setIsDeleted(true)
                 }}
                 variant='light'
                 size='sm'
-                startContent={<MdDeleteOutline></MdDeleteOutline>}
+                startContent={<RiDeleteBinLine></RiDeleteBinLine>}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}

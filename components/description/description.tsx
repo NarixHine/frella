@@ -26,7 +26,7 @@ export default function Description({ description: initialDescription, isEditabl
                     editable={isEditing}
                     onUpdate={({ editor }) => { setDescription(editor.getHTML()) }}
                 ></Tiptap>
-                : <article className='prose dark:prose-invert leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
+                : <article className='prose prose-p:my-0.5 prose-p:my-0.5 dark:prose-invert leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
         }
 
         {isEditable && <Button

@@ -12,7 +12,7 @@ export default async function FrellaPage({ params }: {
     const { id } = params
     const { content, user, isPublic } = await retrieveFrella({ id })
     const profile = await getUserProfile({ userId: user!.userId })
-    return <Main isCentered>
+    return <Main>
         {
             isPublic
                 ? <Frella id={id} content={content} isPublic isEditable={false} {...profile}></Frella>

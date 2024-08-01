@@ -3,7 +3,7 @@ import './globals.css'
 import { Providers } from './providers'
 import Header from './header'
 import { inter } from '@/utils/fonts'
-import getHandle, { checkIsEmbedding } from '@/lib/routing'
+import getHandle, { checkIsEmbedding } from '@/utils/routing'
 
 export const metadata: Metadata = {
   title: {

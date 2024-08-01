@@ -1,20 +1,20 @@
 import Main from '@/components/main'
-import getHandle, { checkIsEmbedding } from '@/lib/routing'
+import getHandle, { checkIsEmbedding } from '@/utils/routing'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import Dashboard from './dashboard/page'
 import SSRFeed from '@/components/feed'
+import Panel from '@/components/panel'
 
 export default function Home() {
   if (checkIsEmbedding()) {
-    return <Main isCentered>
+    return <Main fullHeight>
       <SSRFeed />
     </Main>
   }
-  if (getHandle()) {
-    return <Dashboard />
+  else if (getHandle()) {
+    return <Panel />
   }
-  if (auth().userId) {
+  else if (auth().userId) {
     redirect('/dashboard')
   }
   return <Main>

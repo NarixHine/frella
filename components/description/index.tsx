@@ -1,10 +1,12 @@
 import Description from './description'
 import { getUserRec } from '@/utils/auth'
 import { Skeleton } from '@nextui-org/react'
-import getHandle from '@/lib/routing'
+import getHandle from '@/utils/routing'
+import { getUserFromHandle } from '../profile/actions'
 
 export default async function SSRDescription() {
-    const { description, isPublic } = await getUserRec({ userId: getHandle() })
+    const handle = getHandle()
+    const { description, isPublic } = await getUserRec(handle ? { userId: (await getUserFromHandle({handle})).id } : {})
     return <Description isPublic={isPublic} isEditable={!getHandle()} description={description ?? ''} />
 }
 

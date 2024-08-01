@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
 import { cookies } from 'next/headers'
-import getHandle from '@/lib/routing'
+import getHandle from '@/utils/routing'
 
 const xata = getXataClient()
 

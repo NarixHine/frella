@@ -1,12 +1,14 @@
-import { clerkClient, currentUser } from '@clerk/nextjs/server'
+import { clerkClient } from '@clerk/nextjs/server'
 import Feed from './feed'
 import { loadInitialFrellas, restoreNewFrella } from './actions'
 import { getUserRec } from '@/utils/auth'
-import getHandle from '@/lib/routing'
+import getHandle from '@/utils/routing'
 import Denial from '../denial'
+import { getUserFromHandle } from '../profile/actions'
 
 export default async function SSRFeed() {
-    const { isPublic, userId } = await getUserRec({ userId: getHandle() })
+    const handle = getHandle()
+    const { isPublic, userId } = await getUserRec(handle ? { userId: (await getUserFromHandle({ handle })).id } : {})
     const user = await clerkClient.users.getUser(userId!)
     const profile = {
         src: user?.imageUrl!,

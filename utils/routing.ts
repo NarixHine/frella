@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 
 export default function getHandle() {
-    // return 'user_2jx7jrdNmzoFoCmWbzM6w4sEeuX'
+     return 'hello'
     const host = headers().get('host')
     const tokens = host?.split('.')
     return tokens?.length === 3 ? tokens[0].split('-')[0] : undefined

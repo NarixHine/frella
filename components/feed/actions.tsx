@@ -4,6 +4,7 @@ import authAndGetFrella, { getUserRec } from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
 import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
+import { cookies } from 'next/headers'
 
 const xata = getXataClient()
 
@@ -11,6 +12,7 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
     if (createNew) {
         const user = await getUserRec()
         await xata.db.frellas.create({ id, content, user, isPublic })
+        cookies().delete('new-frella')
         revalidatePath('/dashboard')
     }
     else {
@@ -18,6 +20,16 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
         await frella.update({ content, isPublic })
     }
     revalidatePath('/dashboard')
+}
+
+export async function restoreNewFrella() {
+    const newFrella = cookies().get('new-frella')
+    if (newFrella && newFrella.value !== '') {
+        return JSON.parse(newFrella.value)
+    }
+    return {
+        content: ''
+    }
 }
 
 export async function toggleFrellaVisibility({ id, isPublic }: { id: string, isPublic: boolean }) {

@@ -2,13 +2,15 @@
 
 import { useState } from 'react'
 import Profile from '../profile/profile'
-import { Button, Textarea } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import { CiEdit } from 'react-icons/ci'
 import { LiaSave } from 'react-icons/lia'
 import saveFrella, { deleteFrella, toggleFrellaVisibility } from './actions'
 import { IoMdLink } from 'react-icons/io'
-import { MdDeleteOutline, MdPublic, MdPublicOff } from 'react-icons/md'
+import { MdDeleteOutline, MdOutlinePublish, MdPublic, MdPublicOff } from 'react-icons/md'
 import Tiptap from '../tiptap'
+import { useDebounce } from 'use-debounce'
+import { useCookies } from 'next-client-cookies'
 
 export type FrellaProps = {
     id: string
@@ -29,7 +31,7 @@ export default function Frella({
     isEditing: initialIsEditing = false,
     ...profileProps
 }: Readonly<FrellaProps>) {
-    const createNew = initialIsEditing
+    const isCreatingNew = initialIsEditing
 
     const [isEditing, setIsEditing] = useState(initialIsEditing)
     const [isPublic, setIsPublic] = useState(initialIsPublic)
@@ -37,15 +39,24 @@ export default function Frella({
     const [isDeleted, setIsDeleted] = useState(false)
     const [isSaving, setIsSaving] = useState(false)
 
+    const cookies = useCookies()
+    const [save] = useDebounce(({ content }: { content: string }) => {
+        cookies.set('new-frella', JSON.stringify({ content }))
+    }, 1000)
+
     return !isDeleted && <div className={'flex flex-col border-default-900/10 bg-background/30 border-1 rounded-lg p-5'}>
         <Profile {...profileProps} isCompact></Profile>
         {
             isEditing
                 ? <Tiptap
-                    autofocus={createNew}
+                    autofocus={isCreatingNew}
                     content={content}
                     editable={isEditing}
-                    onUpdate={({ editor }) => { setContent(editor.getHTML()) }}
+                    onUpdate={({ editor }) => {
+                        setContent(editor.getHTML())
+                        if (isCreatingNew)
+                            save({ content: editor.getHTML() })
+                    }}
                 ></Tiptap>
                 : <article className='my-4 prose dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
         }
@@ -55,7 +66,7 @@ export default function Frella({
                 onPress={async () => {
                     if (isEditing) {
                         setIsSaving(true)
-                        await saveFrella({ content, id, isPublic, createNew })
+                        await saveFrella({ content, id, isPublic, createNew: isCreatingNew })
                         setIsSaving(false)
                     }
                     setIsEditing(!isEditing)
@@ -63,7 +74,24 @@ export default function Frella({
                 isLoading={isSaving}
                 variant='light'
                 size='sm'
-                startContent={!isSaving && (isEditing ? <LiaSave></LiaSave> : <CiEdit></CiEdit>)}
+                startContent={!isSaving && (isEditing ? (isCreatingNew ? <MdOutlinePublish></MdOutlinePublish> : <LiaSave></LiaSave>) : <CiEdit></CiEdit>)}
+                isIconOnly
+                className='text-lg rounded'
+            ></Button>}
+
+            {isEditable && <Button
+                onPress={async () => {
+                    if (!isCreatingNew) {
+                        setIsSaving(true)
+                        await toggleFrellaVisibility({ id, isPublic: !isPublic })
+                        setIsSaving(false)
+                    }
+                    setIsPublic(!isPublic)
+                }}
+                isLoading={isSaving}
+                variant='light'
+                size='sm'
+                startContent={!isSaving && (isPublic ? <MdPublic /> : <MdPublicOff />)}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}
@@ -79,20 +107,7 @@ export default function Frella({
                 className='text-lg rounded'
             ></Button>}
 
-            {isEditable && <Button
-                onPress={async () => {
-                    if (!createNew)
-                        await toggleFrellaVisibility({ id, isPublic: !isPublic })
-                    setIsPublic(!isPublic)
-                }}
-                variant='light'
-                size='sm'
-                startContent={isPublic ? <MdPublic /> : <MdPublicOff />}
-                isIconOnly
-                className='text-lg rounded'
-            ></Button>}
-
-            {isEditable && !createNew && <Button
+            {isEditable && !isCreatingNew && <Button
                 onPress={async () => {
                     await deleteFrella({ id })
                     setIsDeleted(true)

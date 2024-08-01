@@ -1,5 +1,5 @@
-import type { Metadata } from "next"
-import "./globals.css"
+import type { Metadata } from 'next'
+import './globals.css'
 import { Providers } from './providers'
 import Header from './header'
 import { inter } from '@/utils/fonts'

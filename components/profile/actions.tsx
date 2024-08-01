@@ -1,4 +1,4 @@
-import { auth, clerkClient, currentUser } from '@clerk/nextjs/server'
+import { auth, clerkClient } from '@clerk/nextjs/server'
 
 export default async function getUserProfile({ userId = auth().userId }: {
     userId?: string | null

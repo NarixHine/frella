@@ -23,7 +23,7 @@ export function Providers({ children }: ProvidersProps) {
             <GoogleOneTap />
             <NextUIProvider navigate={router.push}>
                 <NextThemesProvider attribute='class' enableSystem>
-                    {children}
+                        {children}
                 </NextThemesProvider>
             </NextUIProvider>
         </ClerkProvider>

@@ -1,12 +1,11 @@
 import { currentUser } from '@clerk/nextjs/server'
 import Feed from './feed'
-import { getXataClient } from '@/lib/xata'
-import { loadInitialFrellas } from './actions'
-
-const xata = getXataClient()
+import { loadInitialFrellas, restoreNewFrella } from './actions'
+import { getUserRec } from '@/utils/auth'
 
 export default async function SSRFeed() {
     const user = await currentUser()
+    const { isPublic } = await getUserRec()
     const profile = {
         src: user?.imageUrl!,
         name: user?.fullName,
@@ -18,14 +17,14 @@ export default async function SSRFeed() {
     return <Feed cursor={cursor} more={more} frellas={
         [{
             id: crypto.randomUUID(),
-            content: ``,
+            ...(await restoreNewFrella()),
             isEditable: true,
             isEditing: true,
-            isPublic: true,
+            isPublic,
             ...profile
         }].concat(frellas.map((props) => ({
             ...props,
             ...profile,
         })))
-    }></Feed>
+    }></Feed >
 }

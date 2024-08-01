@@ -14,4 +14,5 @@ export default async function saveDescription({ description }: {
 export async function toggleUserFeedVisibility({ isPublic }: { isPublic: boolean }) {
     const user = await getUserRec()
     await user.update({ isPublic })
+    revalidatePath('/dashboard')
 }

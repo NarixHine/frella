@@ -10,7 +10,7 @@ export default function Profile({ src, handle, name, isLoading, isCompact }: {
 }) {
     return <>
         {
-            !isCompact && <div className='opacity-40 my-5 text-balance text-sm space-y-2'>
+            !isCompact && <div className='opacity-40 mb-5 text-balance text-sm space-y-2'>
                 <p>
                     Change your name, handle & avatar in&nbsp;
                     <Link href={'/dashboard/profile'} className='underline'>

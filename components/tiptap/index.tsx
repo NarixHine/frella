@@ -12,13 +12,59 @@ import Link from '@tiptap/extension-link'
 import { TbBlockquote } from 'react-icons/tb'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { useRef } from 'react'
+import Image from '@tiptap/extension-image'
+import FileHandler from '@tiptap-pro/extension-file-handler'
+import { uploadImage } from './actions'
 
 const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean }) => {
+  const handleImageUpload = (file: File, callback: (src: string) => void) => {
+    const fileReader = new FileReader()
+    fileReader.readAsDataURL(file)
+    fileReader.onload = async () => {
+      const base64Content = (fileReader.result as string).split(',')[1]
+      const src = await uploadImage({ base64Content, mediaType: file.type })
+      callback(src)
+    }
+  }
+
   const editor = useEditor({
-    extensions: [StarterKit, Link],
+    extensions: [StarterKit, Link, Image, FileHandler.configure({
+
+      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+
+      onDrop: (currentEditor, files, pos) => {
+        files.forEach(file => {
+          handleImageUpload(file, src => {
+            currentEditor.chain().focus().insertContentAt(pos, {
+              type: 'image',
+              attrs: {
+                src,
+              },
+            }).run()
+          })
+        })
+      },
+
+      onPaste: (currentEditor, files, htmlContent) => {
+        files.forEach(file => {
+          if (htmlContent) {
+            return false
+          }
+          handleImageUpload(file, src => {
+            currentEditor.chain().focus().insertContentAt(currentEditor.state.selection.anchor, {
+              type: 'image',
+              attrs: {
+                src,
+              },
+            }).run()
+          })
+        })
+
+      },
+    }),],
     editorProps: {
       attributes: {
-        class: `prose ${isTight ? 'prose-p:my-0.5' : 'prose-p:my-2'} dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
+        class: `prose ${isTight ? 'prose-p:my-0.5 prose-img:my-2' : 'prose-p:my-2 prose-img:my-4'} dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
       },
     },
     immediatelyRender: false,

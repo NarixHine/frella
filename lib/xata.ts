@@ -22,7 +22,17 @@ const tables = [
       { name: "userId", type: "string" },
       { name: "isPublic", type: "bool", notNull: true, defaultValue: "true" },
     ],
-    revLinks: [{ column: "user", table: "frellas" }],
+    revLinks: [
+      { column: "user", table: "frellas" },
+      { column: "user", table: "images" },
+    ],
+  },
+  {
+    name: "images",
+    columns: [
+      { name: "user", type: "link", link: { table: "users" } },
+      { name: "src", type: "file", file: { defaultPublicAccess: true } },
+    ],
   },
 ] as const;
 
@@ -35,9 +45,13 @@ export type FrellasRecord = Frellas & XataRecord;
 export type Users = InferredTypes["users"];
 export type UsersRecord = Users & XataRecord;
 
+export type Images = InferredTypes["images"];
+export type ImagesRecord = Images & XataRecord;
+
 export type DatabaseSchema = {
   frellas: FrellasRecord;
   users: UsersRecord;
+  images: ImagesRecord;
 };
 
 const DatabaseClient = buildClient();

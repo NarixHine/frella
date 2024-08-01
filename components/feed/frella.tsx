@@ -59,7 +59,7 @@ export default function Frella({
                             save({ content: editor.getHTML() })
                     }}
                 ></Tiptap>
-                : <article className='my-3 prose prose-p:my-2 dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
+                : <article className='my-3 prose prose-p:my-2 prose-img:my-4 dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
         }
 
         <div className='flex space-x-1'>

@@ -1,0 +1,19 @@
+{
+  "id": "mig_cqln04754rvcve4lmor0",
+  "parentID": "mig_cqlmvr754rvcve4lmop0",
+  "checksum": "1:a04dda7a284a73d62ebcaf4aaff8049ec6793040cc77a5dfb78cc1862faf721c",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "src",
+          "type": "file",
+          "file": {
+            "defaultPublicAccess": true
+          }
+        },
+        "table": "images"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mig_cqlmvr754rvcve4lmop0",
+  "parentID": "mig_cqlmvjh6nlnk9bvj0kl0",
+  "checksum": "1:f711869291fb2c7c0449a82aae3097824bd2b6109d63db6aa57855443dc846ab",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "user",
+          "type": "link",
+          "link": {
+            "table": "users"
+          }
+        },
+        "table": "images"
+      }
+    }
+  ]
+}

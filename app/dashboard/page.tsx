@@ -15,13 +15,14 @@ export default function DashboardPage() {
             <div className='flex-1'></div>
             <SSRFeed></SSRFeed>
         </section>
-        <section className='pt-5 md:basis-2/5 md:pt-20'>
+        
+        <aside className='pt-5 md:basis-2/5 md:pt-20'>
             <Suspense fallback={<Profile isLoading></Profile>}>
                 <SSRProfile></SSRProfile>
             </Suspense>
             <Suspense fallback={<DescriptionSkeleton></DescriptionSkeleton>}>
                 <SSRDescription></SSRDescription>
             </Suspense>
-        </section>
+        </aside>
     </Main>
 }

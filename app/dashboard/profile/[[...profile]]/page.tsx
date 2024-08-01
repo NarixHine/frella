@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 export const metadata: Metadata = { title: 'Profile' }
 
 export default function Page() {
-    return <Main isCentered>
+    return <Main isCentered className='opacity-80'>
         <UserProfile path='/dashboard/profile' />
     </Main>
 }

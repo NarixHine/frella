@@ -1,8 +1,8 @@
 'use client'
 
-import { ScrollShadow, Spinner } from '@nextui-org/react'
+import { Divider, ScrollShadow, Spinner } from '@nextui-org/react'
 import Frella, { FrellaProps } from './frella'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import Profile from '../profile/profile'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { loadFrellas } from './actions'
@@ -18,26 +18,25 @@ export default function Feed({ frellas, more: initialMore, cursor }: { frellas: 
         queryKey: ['frella'],
         queryFn: async ({ pageParam }) => {
             const recs = await loadFrellas({ cursor: pageParam })
-            setMore(recs.more)
             return recs
         },
         initialPageParam: cursor,
         getNextPageParam: ({ cursor }) => cursor,
         enabled: false
     })
-    const [more, setMore] = useState(initialMore)
+    const more = data ? data.pages[data.pages.length - 1].more : initialMore
 
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         const { current } = ref
-        if (cursor && current)
+        if (current)
             new IntersectionObserver((e) => {
                 const { isIntersecting } = e[0]
-                if (isIntersecting && !isLoading) {
+                if (isIntersecting && !isLoading && more) {
                     fetchNextPage()
                 }
             }).observe(current)
-    }, [ref, cursor, isLoading, fetchNextPage])
+    }, [ref, isLoading, fetchNextPage, more])
 
     const loadedFrellas = data ? data.pages.map(({ frellas }) => frellas).flat().map((props) => ({
         ...props,
@@ -53,14 +52,22 @@ export default function Feed({ frellas, more: initialMore, cursor }: { frellas: 
                     </li>
                 ))
             }
-            {more && <li className='pt-5'>
+            {initialMore && <li className='pt-5'>
                 <div ref={ref} className={`border-b-0 opacity-60 flex flex-col border-default-900/10 bg-background/30 border-1 rounded-lg p-5`}>
                     <Profile
                         {...profileProps}
                         isCompact
                     ></Profile>
-                    <div className='w-full h-40 flex justify-center items-center'>
-                        <Spinner color='primary' className='block'></Spinner>
+                    <div className={'w-full h-20 flex justify-center items-center'}>
+                        {
+                            more
+                                ? <Spinner color='primary' className='block'></Spinner>
+                                : <>
+                                    <Divider className='flex-1'></Divider>
+                                    <div className='mx-3 opacity-30'>The End</div>
+                                    <Divider className='flex-1'></Divider>
+                                </>
+                        }
                     </div>
                 </div>
             </li>}

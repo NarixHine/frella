@@ -4,11 +4,11 @@ import { loadInitialFrellas, restoreNewFrella } from './actions'
 import { getUserRec } from '@/utils/auth'
 import getHandle from '@/utils/routing'
 import Denial from '../denial'
-import { getUserFromHandle } from '../profile/actions'
+import { getUserIdConfigToProceed } from '../profile/actions'
 
 export default async function SSRFeed() {
     const handle = getHandle()
-    const { isPublic, userId } = await getUserRec(handle ? { userId: (await getUserFromHandle({ handle })).id } : {})
+    const { isPublic, userId } = await getUserRec(await getUserIdConfigToProceed())
     const user = await clerkClient.users.getUser(userId!)
     const profile = {
         src: user?.imageUrl!,
@@ -16,7 +16,7 @@ export default async function SSRFeed() {
         handle: user?.username
     }
 
-    const { frellas, cursor, more } = await loadInitialFrellas()
+    const { frellas, cursor, more } = await loadInitialFrellas(await getUserIdConfigToProceed())
 
     return isPublic || !getHandle() ? <Feed cursor={cursor} more={more} frellas={
         (getHandle() ? [] : [{

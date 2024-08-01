@@ -1,3 +1,4 @@
+import getHandle from '@/utils/routing'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 
 export default async function getUserProfile({ userId = auth().userId }: {
@@ -26,4 +27,9 @@ export async function getUserFromHandle({ handle }: {
         name: user.fullName,
         handle: user.username,
     }
+}
+
+export async function getUserIdConfigToProceed() {
+    const handle = getHandle()
+    return handle ? { userId: (await getUserFromHandle({ handle })).id } : undefined
 }

@@ -21,11 +21,11 @@ export default function Header() {
                 Frella
             </Link>
         </NavbarBrand>
-        <NavbarContent as={'div'} justify='end'>
+        <NavbarContent justify='end'>
             {
                 userId
                     ? <UserButton userProfileUrl='/dashboard/profile'></UserButton>
-                    : <Button as={Link} isIconOnly variant='flat' href='/sign-in'>
+                    : <Button as={Link} color='primary' variant='flat' isIconOnly href='/sign-in'>
                         <AiOutlineLogin></AiOutlineLogin>
                     </Button>
             }

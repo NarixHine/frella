@@ -10,7 +10,7 @@ import Tiptap from '../tiptap'
 
 export default function Description({ description: initialDescription, isEditable, isPublic: initialIsPublic }: {
     description: string,
-    isEditable: boolean,
+    isEditable?: boolean,
     isPublic: boolean
 }) {
     const [isPublic, setIsPublic] = useState(initialIsPublic)
@@ -26,7 +26,7 @@ export default function Description({ description: initialDescription, isEditabl
                     editable={isEditing}
                     onUpdate={({ editor }) => { setDescription(editor.getHTML()) }}
                 ></Tiptap>
-                : <article className='prose prose-p:my-0.5 prose-img:my-2 dark:prose-invert leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
+                : <article className='prose prose-blockquote:my-2 prose-h1:my-2 prose-h2:my-2 prose-p:my-0.5 prose-img:my-2 dark:prose-invert leading-normal' dangerouslySetInnerHTML={{ __html: description }}></article>
         }
 
         {isEditable && <Button

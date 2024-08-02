@@ -5,17 +5,18 @@ const xata = getXataClient()
 export async function GET(req: Request, { params }: {
     params: {
         userId: string
-        offset: string
+        cursor: string
     }
 }) {
-    // TODO: CHECK IF IS PUBLIC
-    const { userId, offset } = params
+    const { userId, cursor } = params
     const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
-        'user.userId': userId
+        'user.userId': userId,
+        'user.isPublic': true,
+        isPublic: true,
     }).getPaginated({
         pagination: {
             size: 5,
-            offset: parseInt(offset)
+            after: cursor === 'initial' ? undefined : cursor
         }
     })
     return Response.json({
@@ -25,6 +26,12 @@ export async function GET(req: Request, { params }: {
             isPublic,
         })),
         cursor: meta.page.cursor,
-        more: meta.page.more
+        more: meta.page.more,
+    }, {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        }
     })
 }

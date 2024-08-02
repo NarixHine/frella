@@ -7,7 +7,6 @@ import Denial from '../denial'
 import { getUserIdConfigToProceed } from '../profile/actions'
 
 export default async function SSRFeed() {
-    const handle = getHandle()
     const { isPublic, userId } = await getUserRec(await getUserIdConfigToProceed())
     const user = await clerkClient.users.getUser(userId!)
     const profile = {

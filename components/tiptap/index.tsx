@@ -1,7 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup, Input } from '@nextui-org/react'
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/modal'
+import { Button, ButtonGroup, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
 import { useEditor, EditorContent, UseEditorOptions, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough } from 'react-icons/ai'
@@ -15,6 +14,7 @@ import { useRef } from 'react'
 import Image from '@tiptap/extension-image'
 import FileHandler from '@tiptap-pro/extension-file-handler'
 import { uploadImage } from './actions'
+import { RxHeading } from 'react-icons/rx'
 
 const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean }) => {
   const handleImageUpload = (file: File, callback: (src: string) => void) => {
@@ -28,43 +28,51 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
   }
 
   const editor = useEditor({
-    extensions: [StarterKit, Link, Image, FileHandler.configure({
+    extensions: [
+      StarterKit,
+      Image,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: 'https',
+      }),
+      FileHandler.configure({
 
-      allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
+        allowedMimeTypes: ['image/png', 'image/jpeg', 'image/gif', 'image/webp'],
 
-      onDrop: (currentEditor, files, pos) => {
-        files.forEach(file => {
-          handleImageUpload(file, src => {
-            currentEditor.chain().focus().insertContentAt(pos, {
-              type: 'image',
-              attrs: {
-                src,
-              },
-            }).run()
+        onDrop: (currentEditor, files, pos) => {
+          files.forEach(file => {
+            handleImageUpload(file, src => {
+              currentEditor.chain().focus().insertContentAt(pos, {
+                type: 'image',
+                attrs: {
+                  src,
+                },
+              }).run()
+            })
           })
-        })
-      },
+        },
 
-      onPaste: (currentEditor, files, htmlContent) => {
-        files.forEach(file => {
-          if (htmlContent) {
-            return false
-          }
-          handleImageUpload(file, src => {
-            currentEditor.chain().focus().insertContentAt(currentEditor.state.selection.anchor, {
-              type: 'image',
-              attrs: {
-                src,
-              },
-            }).run()
+        onPaste: (currentEditor, files, htmlContent) => {
+          files.forEach(file => {
+            if (htmlContent) {
+              return false
+            }
+            handleImageUpload(file, src => {
+              currentEditor.chain().focus().insertContentAt(currentEditor.state.selection.anchor, {
+                type: 'image',
+                attrs: {
+                  src,
+                },
+              }).run()
+            })
           })
-        })
 
-      },
-    }),],
+        },
+      }),],
     editorProps: {
       attributes: {
-        class: `prose ${isTight ? 'prose-p:my-0.5 prose-img:my-2' : 'prose-p:my-2 prose-img:my-4'} dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
+        class: `prose ${isTight ? ' prose-blockquote:my-2 prose-h1:my-2 prose-h2:my-2 prose-p:my-0.5 prose-img:my-2' : 'prose-blockquote:my-3 prose-h1:my-3 prose-h2:my-3 prose-p:my-2 prose-img:my-4'} dark:prose-invert ${isTight ? 'leading-normal' : ''} focus:outline-none ${isTight ? '' : 'my-4'} max-w-full`,
       },
     },
     immediatelyRender: false,
@@ -119,6 +127,12 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
     <Dialog />
     <BubbleMenu editor={editor}>
       <ButtonGroup variant='light' className='bg-background border rounded-full overflow-clip'>
+        <Button
+          onPress={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+          variant={editor.isActive('heading', { level: 2 }) ? 'shadow' : 'light'}
+          startContent={<RxHeading></RxHeading>}
+          isIconOnly
+        ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleBold().run()}
           variant={editor.isActive('bold') ? 'shadow' : 'light'}

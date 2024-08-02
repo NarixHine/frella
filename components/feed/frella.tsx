@@ -101,7 +101,7 @@ export default function Frella({
 
             {isPublic && <Button
                 onPress={() => {
-                    navigator.clipboard.writeText(`https://${profileProps.handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/${id}`)
+                    navigator.clipboard.writeText(`https://${profileProps.handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/frella/${id}`)
                 }}
                 variant='light'
                 size='sm'

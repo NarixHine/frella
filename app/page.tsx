@@ -77,6 +77,7 @@ export default function Home() {
           content: '<p><code>hello world</code></p>',
           isPublic: true,
           isEditable: false,
+          date: '2021-10-05',
           ...profile
         }]} more={false}></Feed>
       </section>
@@ -131,26 +132,23 @@ export default function Home() {
 
     <Divider className='my-6'></Divider>
 
-    <div className='flex space-x-3'>
+    <div className='flex space-x-3 w-full'>
       <div className='basis-1/2'>
         <Button
-          color='success'
+          color='primary'
           variant='flat'
-          size='lg'
           fullWidth
           as={'a'}
-          href='https://hello.frella.me/a22d3f48-e4c1-47f3-bfb0-71689fbb246e'
+          href='https://hello.frella.me/frella/a22d3f48-e4c1-47f3-bfb0-71689fbb246e'
         >Read the introduction</Button>
       </div>
       <div className='basis-1/2'>
         <Button
           color='primary'
-          variant='flat'
-          size='lg'
-          fullWidth
           as={'a'}
+          fullWidth
           href='/sign-up'
-        >Start recording, now.</Button>
+        >Start recording</Button>
       </div>
     </div>
   </Main>

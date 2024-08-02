@@ -20,14 +20,12 @@ export default function Profile({ src, handle, name, isLoading, isCompact, hideI
                     </Link>
                 </p>
                 <p>
-                    Where your frellas are live:&nbsp;
                     <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold text-nowrap'>
                         {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <RxExternalLink className='inline'></RxExternalLink>
                     </Link>
                     <br></br>
-                    For embedding:&nbsp;
-                    <Link href={`https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold text-nowrap'>
-                        {handle}-embed.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <RxExternalLink className='inline'></RxExternalLink>
+                    <Link href={`/dashboard/embed`} target='_blank' className='font-mono font-semibold text-nowrap'>
+                        How to embed Frella <RxExternalLink className='inline'></RxExternalLink>
                     </Link>
                 </p>
             </div>
@@ -42,7 +40,7 @@ export default function Profile({ src, handle, name, isLoading, isCompact, hideI
                 {
                     isLoading
                         ? <Skeleton isLoaded={Boolean(name)} className='rounded h-9 w-44 mb-2'></Skeleton>
-                        : <h1 className={isCompact ? 'text-md font-semibold' : 'text-4xl font-bold text-primary-400 dark:text-primary-500'}>{name}</h1>
+                        : <p className={isCompact ? 'text-md font-semibold' : 'text-4xl font-bold text-primary-400 dark:text-primary-500'}>{name}</p>
                 }
                 {
                     isLoading

@@ -1,4 +1,11 @@
-'use client'
+import Embedder from '@/components/embedder'
+import Main from '@/components/main'
+import getUserProfile from '@/components/profile/actions'
+import { auth } from '@clerk/nextjs/server'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+
+const SNIPPET_1 = `'use client'
 
 import { useEffect, useRef } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
@@ -7,7 +14,9 @@ export default function Embedder() {
     const { data, isLoading, fetchNextPage } = useInfiniteQuery({
         queryKey: ['frella'],
         queryFn: async ({ pageParam }) => {
-            const { frellas, cursor, more } = await fetch(`/api/frellas/user_2k3mWhoQ4iCNwkmnzcTDrJ1JPfA/${pageParam}`).then((res) => res.json())
+            const { frellas, cursor, more } = await fetch(\`/api/frellas/`
+
+const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
             return { frellas, cursor, more }
         },
         initialPageParam: 'initial',
@@ -59,7 +68,7 @@ export default function Embedder() {
             ))
         }
         <li className='pt-5'>
-            <div ref={ref} className={`border-b-0 opacity-60 flex flex-col border-slate-900/10 bg-slate/30 border-1 rounded-lg p-5`}>
+            <div ref={ref} className={'border-b-0 opacity-60 flex flex-col border-slate-900/10 bg-slate/30 border-1 rounded-lg p-5'}>
                 <Profile></Profile>
                 <div className={'w-full h-20 flex justify-center items-center'}>
                     {
@@ -73,4 +82,36 @@ export default function Embedder() {
             </div>
         </li>
     </ul>
+}
+`
+
+export default async function EmbedPage() {
+    const { userId } = auth()
+    const { handle } = await getUserProfile()
+    const snippet = `${SNIPPET_1}${userId}${SNIPPET_2}`
+    return <Main>
+        <article className='prose pt-5'>
+            <h1>
+                Embed Frella on Your Website
+            </h1>
+            <p>
+                To embed Frella, simply add the following HTML to your website:
+            </p>
+            <SyntaxHighlighter language='html' style={atomOneDark} wrapLongLines>
+                {`<iframe style="width: 100%; height: 600px;" src="https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/"></iframe>`}
+            </SyntaxHighlighter>
+            <p>
+                Alternatively, copy & paste the following React component.
+                <br></br>
+                Make sure you have set up <code>@tanstack/react-query</code>, <code>Tailwind CSS</code> and <code>Tailwind Typography</code>.
+            </p>
+            <SyntaxHighlighter language='jsx' style={atomOneDark} wrapLongLines>
+                {snippet}
+            </SyntaxHighlighter>
+            <p>
+                Preview:
+            </p>
+        </article>
+        <Embedder></Embedder>
+    </Main>
 }

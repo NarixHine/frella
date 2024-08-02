@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
+import { Button, ButtonGroup } from '@nextui-org/react'
 import { useEditor, EditorContent, UseEditorOptions, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough } from 'react-icons/ai'
@@ -10,7 +10,7 @@ import { PiCodeBlockLight } from 'react-icons/pi'
 import Link from '@tiptap/extension-link'
 import { TbBlockquote } from 'react-icons/tb'
 import { MdOutlineAddLink } from 'react-icons/md'
-import { useRef } from 'react'
+import { useCallback } from 'react'
 import Image from '@tiptap/extension-image'
 import FileHandler from '@tiptap-pro/extension-file-handler'
 import { uploadImage } from './actions'
@@ -79,52 +79,25 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
     ...props
   })
 
-  const ref = useRef<HTMLInputElement>(null)
-  const { isOpen, onOpenChange, onOpen } = useDisclosure()
-  const Dialog = () => (
-    <Modal
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-    >
-      <ModalContent>
-        {(onClose) => (
-          <>
-            <ModalHeader>Enter the URL</ModalHeader>
-            <ModalBody>
-              <Input
-                autoFocus
-                ref={ref}
-                variant='underlined'
-              />
-            </ModalBody>
-            <ModalFooter>
-              <Button onPress={onClose} variant='light'>Cancel</Button>
-              <Button
-                onPress={() => {
-                  const { current } = ref
-                  if (editor && current) {
-                    const url = current.value
-                    if (url === '') {
-                      editor.chain().focus().extendMarkRange('link').unsetLink().run()
-                    }
-                    else {
-                      editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
-                    }
-                  }
-                  onClose()
-                }}
-                variant='light'
-                color='primary'
-              >Save</Button>
-            </ModalFooter>
-          </>
-        )}
-      </ModalContent>
-    </Modal>
-  )
+  const setLink = useCallback(() => {
+    if (editor) {
+      const previousUrl = editor.getAttributes('link').href
+      const url = window.prompt('URL', previousUrl)
+      if (url === null) {
+        return
+      }
+      if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink()
+          .run()
+
+        return
+      }
+      editor.chain().focus().extendMarkRange('link').setLink({ href: url })
+        .run()
+    }
+  }, [editor])
 
   return editor ? <div>
-    <Dialog />
     <BubbleMenu editor={editor}>
       <ButtonGroup variant='light' className='bg-background border rounded-full overflow-clip'>
         <Button
@@ -176,7 +149,7 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
           isIconOnly
         ></Button>
         <Button
-          onPress={onOpen}
+          onPress={setLink}
           variant={editor.isActive('link') ? 'shadow' : 'light'}
           startContent={<MdOutlineAddLink></MdOutlineAddLink>}
           isIconOnly

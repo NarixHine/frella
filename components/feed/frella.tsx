@@ -20,12 +20,14 @@ export type FrellaProps = {
     handle: string | null | undefined
     content: string
     isPublic: boolean
+    date?: string
     isEditable?: boolean
     isEditing?: boolean
 }
 
 export default function Frella({
     id,
+    date,
     isPublic: initialIsPublic,
     content: initialContent,
     isEditable = true,
@@ -62,7 +64,7 @@ export default function Frella({
                 : <article className='my-3 prose prose-blockquote:my-3 prose-h1:my-3 prose-h2:my-3 prose-p:my-2 prose-img:my-4 dark:prose-invert' dangerouslySetInnerHTML={{ __html: content }}></article>
         }
 
-        <div className='flex space-x-1'>
+        <div className='flex space-x-1 items-center'>
             {isEditable && <Button
                 onPress={async () => {
                     if (isEditing) {
@@ -108,7 +110,7 @@ export default function Frella({
                 className='text-lg rounded'
             ></Button>}
 
-            {isDeletable && <div><Divider orientation='vertical'></Divider></div>}
+            {isDeletable && <Divider orientation='vertical' className='w-[1px] h-6'></Divider>}
 
             {isDeletable && <Button
                 onPress={async () => {
@@ -121,6 +123,12 @@ export default function Frella({
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}
+
+            <div className='flex-1'></div>
+
+            <time className='font-mono text-sm'>
+                {date}
+            </time>
         </div>
     </div>
 }

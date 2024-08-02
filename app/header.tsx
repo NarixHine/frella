@@ -21,7 +21,7 @@ export default function Header() {
                 Frella
             </Link>
         </NavbarBrand>
-        <NavbarContent justify='end'>
+        <NavbarContent as={'div'} justify='end'>
             {
                 userId
                     ? <UserButton userProfileUrl='/dashboard/profile'></UserButton>

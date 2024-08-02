@@ -52,10 +52,11 @@ export async function loadInitialFrellas({ userId = auth().userId }: { userId?: 
         }
     })
     return {
-        frellas: records.map(({ id, content, isPublic }) => ({
+        frellas: records.map(({ id, content, isPublic, xata }) => ({
             id,
             content,
             isPublic,
+            date: xata.createdAt.toDateString(),
             isEditable: !getHandle(),
             isEditing: false,
         })),
@@ -72,10 +73,11 @@ export async function loadFrellas({ cursor }: { cursor?: string }) {
         }
     })
     return {
-        frellas: records.map(({ id, content, isPublic }) => ({
+        frellas: records.map(({ id, content, isPublic, xata }) => ({
             id,
             content,
             isPublic,
+            date: xata.createdAt.toDateString(),
             isEditable: !getHandle(),
             isEditing: false,
         })),

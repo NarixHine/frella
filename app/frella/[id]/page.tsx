@@ -10,12 +10,12 @@ export default async function FrellaPage({ params }: {
     }
 }) {
     const { id } = params
-    const { content, user, isPublic } = await retrieveFrella({ id })
+    const { content, user, isPublic, xata } = await retrieveFrella({ id })
     const profile = await getUserProfile({ userId: user!.userId })
     return <Main>
         {
             isPublic
-                ? <Frella id={id} content={content} isPublic isEditable={false} {...profile}></Frella>
+                ? <Frella id={id} content={content} date={xata.createdAt.toDateString()} isPublic isEditable={false} {...profile}></Frella>
                 : <Denial></Denial>
         }
     </Main>

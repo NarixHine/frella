@@ -1,3 +1,4 @@
+import getUserProfile from '@/components/profile/actions'
 import { getXataClient } from '@/lib/xata'
 
 const xata = getXataClient()
@@ -9,6 +10,7 @@ export async function GET(req: Request, { params }: {
     }
 }) {
     const { userId, cursor } = params
+    const { src, handle, name } = await getUserProfile()
     const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
         'user.userId': userId,
         'user.isPublic': true,
@@ -20,10 +22,14 @@ export async function GET(req: Request, { params }: {
         }
     })
     return Response.json({
-        frellas: records.map(({ id, content, isPublic }) => ({
+        frellas: records.map(({ id, content, isPublic, xata }) => ({
             id,
             content,
             isPublic,
+            src,
+            handle,
+            name,
+            date: xata.createdAt.toDateString(),
         })),
         cursor: meta.page.cursor,
         more: meta.page.more,

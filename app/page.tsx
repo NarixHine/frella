@@ -13,6 +13,13 @@ import { BiLock } from 'react-icons/bi'
 import { FaReact } from 'react-icons/fa'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import { Metadata } from 'next'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: getHandle() ? `${getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
+  }
+}
 
 const profile = {
   src: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ2l0aHViL2ltZ18yazNtV2wxZWZpNU9xUkZIbE9NSzlJTjVMdXIifQ',

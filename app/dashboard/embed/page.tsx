@@ -2,8 +2,14 @@ import Embedder from '@/components/embedder'
 import Main from '@/components/main'
 import getUserProfile from '@/components/profile/actions'
 import { auth } from '@clerk/nextjs/server'
+import { Metadata } from 'next'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
+
+export const metadata: Metadata = {
+    title: 'Embed Frella',
+    description: 'Embed Frella on your website',
+}
 
 const SNIPPET_1 = `'use client'
 

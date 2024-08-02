@@ -3,6 +3,22 @@ import { retrieveFrella } from '@/components/feed/actions'
 import Frella from '@/components/feed/frella'
 import Main from '@/components/main'
 import getUserProfile from '@/components/profile/actions'
+import { Metadata } from 'next'
+
+export async function generateMetadata(
+    { params }: {
+        params: {
+            id: string
+        }
+    },
+): Promise<Metadata> {
+    const { id } = params
+    const { user } = await retrieveFrella({ id })
+    const { name } = await getUserProfile({ userId: user!.userId })
+    return {
+        title: name,
+    }
+}
 
 export default async function FrellaPage({ params }: {
     params: {

@@ -5,6 +5,7 @@ import Header from './header'
 import { inter } from '@/utils/fonts'
 import getHandle, { checkIsEmbedding } from '@/utils/routing'
 import Footer from './footer'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: {
@@ -20,6 +21,7 @@ export default function RootLayout({
 }>) {
   return <html lang='en'>
     <body className={inter.className}>
+      <Analytics></Analytics>
       <Providers>
         <div className={`flex flex-col w-full ${checkIsEmbedding() ? '' : 'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#2D2E2F_1px,transparent_1px)] [background-size:20px_20px]'}`}>
           {!getHandle() && <Header></Header>}

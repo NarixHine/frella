@@ -16,7 +16,7 @@ export async function generateMetadata(
     const { user } = await retrieveFrella({ id })
     const { name } = await getUserProfile({ userId: user!.userId })
     return {
-        title: name,
+        title: `@${name}`,
     }
 }
 

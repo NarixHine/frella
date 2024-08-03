@@ -18,7 +18,7 @@ import Link from 'next/link'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: getHandle() ? `${getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
+    title: getHandle() ? `@${getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
   }
 }
@@ -73,7 +73,7 @@ export default function Home() {
     </p>
 
     <div className='flex'>
-      <Button size='lg' color='primary' className='mx-auto' as={'a'} href='/sign-up'>
+      <Button size='lg' color='primary' className='mx-auto' as={Link} href='/sign-up'>
         Get Started
       </Button>
     </div>
@@ -101,7 +101,7 @@ export default function Home() {
     <div className='flex flex-col space-y-3 w-full'>
       <div className='flex space-y-3 flex-col md:flex-row md:space-x-3 md:space-y-0'>
         <div className='basis-1/3'>
-          <Card title='No centralised feed.' description='Frella is not Twitter, so there is no social function.' />
+          <Card title='No centralised feed.' description={`Frella is designed for your own recording. We're not Twitter, so there is no social function.`} />
         </div>
         <div className='basis-2/3'>
           <Card title='Dedicated subdomain.' description='Your content should not live under a subpath shared by others. Get your own domain. (custom domains coming soon)'>
@@ -122,7 +122,7 @@ export default function Home() {
       </div>
 
       <div className='flex space-y-3 flex-col md:flex-row md:space-x-3 md:space-y-0'>
-        <div className='basis-1/2'>
+        <div className='basis-3/5'>
           <Card title='Embed on your website as a complementary feed.' description={<p>
             Have a serious blog? Then <Link href={'/posts/complementary-feed'} className='underline underline-offset-4 text-primary'>microblog your not-so-serious ideas</Link> on Frella and embed a feed! Some inspirations are too small to make for an article, but are splendid enough to be worth taking a note.
           </p>}>
@@ -133,9 +133,11 @@ export default function Home() {
             </div>
           </Card>
         </div>
-        <div className='basis-1/2'>
+        <div className='basis-2/5'>
           <Card title='Integrate with Next.js or React.' description='Use a ready-made component. Customisable.'>
-            <FaReact size={64} color='#61DBFB'></FaReact>
+            <Button href={'/posts/complementary-feed'} as={Link} size='lg' variant='light' startContent={<FaReact size={40} color='#61DBFB'></FaReact>}>
+              Learn more
+            </Button>
           </Card>
         </div>
       </div>
@@ -149,14 +151,14 @@ export default function Home() {
           color='primary'
           variant='flat'
           fullWidth
-          as={'a'}
+          as={Link}
           href='https://hello.frella.me/frella/a22d3f48-e4c1-47f3-bfb0-71689fbb246e'
         >Read the introduction</Button>
       </div>
       <div className='basis-1/2'>
         <Button
           color='primary'
-          as={'a'}
+          as={Link}
           fullWidth
           href='/sign-up'
         >Start recording</Button>

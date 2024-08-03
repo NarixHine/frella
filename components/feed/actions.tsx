@@ -6,7 +6,7 @@ import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
 import { cookies } from 'next/headers'
 import getHandle from '@/utils/routing'
-import { track } from '@vercel/analytics'
+import { track } from '@vercel/analytics/server'
 
 const xata = getXataClient()
 

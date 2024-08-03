@@ -8,6 +8,7 @@ export default function Embedder() {
         queryKey: ['frella'],
         queryFn: async ({ pageParam }) => {
             const { frellas, cursor, more } = await fetch(`/api/frellas/user_2k3mWhoQ4iCNwkmnzcTDrJ1JPfA/${pageParam}`).then((res) => res.json())
+            console.log({ frellas })
             return { frellas, cursor, more }
         },
         initialPageParam: 'initial',

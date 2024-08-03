@@ -14,10 +14,12 @@ import { FaReact } from 'react-icons/fa'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Metadata } from 'next'
+import Link from 'next/link'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: getHandle() ? `${getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
   }
 }
 
@@ -42,7 +44,7 @@ export default function Home() {
 
   const Card = ({ title, description, children }: {
     title: string,
-    description?: string,
+    description?: string | ReactNode,
     children?: ReactNode
   }) => (
     <div className={'flex items-center flex-col h-full border-default-900/10 bg-background/40 border-1 rounded-lg p-5'}>
@@ -50,9 +52,9 @@ export default function Home() {
         <h1 className='text-2xl font-bold'>{title}</h1>
       </div>
       <div className='w-full'>
-        <p className='text-balance my-1 opacity-80'>
+        <div className='text-balance my-1 opacity-80'>
           {description}
-        </p>
+        </div>
       </div>
       {children && <div className='flex justify-center items-center p-3 h-full w-full'>
         {children}
@@ -121,7 +123,9 @@ export default function Home() {
 
       <div className='flex space-y-3 flex-col md:flex-row md:space-x-3 md:space-y-0'>
         <div className='basis-1/2'>
-          <Card title='Embed on your website as a complementary feed.' description='If you have a blog, then publish your fleeting inspirations on Frella and embed a feed! Some ideas are too small to make for an article, but are splendid enough to be worth taking a note.'>
+          <Card title='Embed on your website as a complementary feed.' description={<p>
+            Have a serious blog? Then <Link href={'/posts/complementary-feed'} className='underline underline-offset-4 text-primary'>microblog your not-so-serious ideas</Link> on Frella and embed a feed! Some inspirations are too small to make for an article, but are splendid enough to be worth taking a note.
+          </p>}>
             <div className='rounded-lg overflow-clip w-full'>
               <SyntaxHighlighter language='html' style={atomOneDark} wrapLongLines>
                 {`<iframe src="https://..."></iframe>`}

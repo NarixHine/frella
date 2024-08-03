@@ -3,7 +3,7 @@
 import { HTMLAttributes, ReactNode } from 'react'
 import { use100vh } from 'react-div-100vh'
 
-export default function Main({ isCentered, fullHeight, children, ...props }: HTMLAttributes<HTMLDivElement> & {
+export default function Main({ isCentered, fullHeight, ...props }: HTMLAttributes<HTMLDivElement> & {
     isCentered?: boolean,
     fullHeight?: boolean
 }) {

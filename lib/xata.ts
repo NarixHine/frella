@@ -19,8 +19,8 @@ const tables = [
     name: "users",
     columns: [
       { name: "description", type: "text" },
-      { name: "userId", type: "string" },
       { name: "isPublic", type: "bool", notNull: true, defaultValue: "true" },
+      { name: "userId", type: "string", unique: true },
     ],
     revLinks: [
       { column: "user", table: "frellas" },

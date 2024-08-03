@@ -15,7 +15,15 @@ export async function getUserRec({ userId = auth().userId }: { userId?: string |
         return profile
     }
     else {
-        return xata.db.users.create({ userId })
+        return await xata.db.users.create({ userId }).catch(async ({ errors }) => {
+            // for edge cases: e.g. duplication caused by racing conditions
+            if (errors[0].message !== 'invalid record: column [userId]: is not unique') {
+                throw new Error('Unknow error')
+            }
+            return await xata.db.users.select(['description', 'userId', 'isPublic']).filter({
+                userId
+            }).getFirstOrThrow()
+        })
     }
 }
 

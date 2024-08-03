@@ -5,7 +5,6 @@ import getHandle from '@/utils/routing'
 import { getUserIdConfigToProceed } from '../profile/actions'
 
 export default async function SSRDescription() {
-    const handle = getHandle()
     const { description, isPublic } = await getUserRec(await getUserIdConfigToProceed())
     return <Description isPublic={isPublic} isEditable={!getHandle()} description={description ?? ''} />
 }

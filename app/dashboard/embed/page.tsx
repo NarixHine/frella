@@ -77,13 +77,9 @@ const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
             <div ref={ref} className={'border-b-0 opacity-60 flex flex-col border-slate-900/10 bg-slate/30 border-1 rounded-lg p-5'}>
                 <Profile></Profile>
                 <div className={'w-full h-20 flex justify-center items-center'}>
-                    {
-                        <>
-                            <hr className='flex-1'></hr>
-                            <div className='mx-3 opacity-30'>{more ? 'Loading ...' : 'The End'}</div>
-                            <hr className='flex-1'></hr>
-                        </>
-                    }
+                        <hr className='flex-1'></hr>
+                        <div className='mx-3 opacity-30'>{more ? 'Loading ...' : 'The End'}</div>
+                        <hr className='flex-1'></hr>
                 </div>
             </div>
         </li>

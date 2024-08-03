@@ -52,7 +52,7 @@ export default function Home() {
         <h1 className='text-2xl font-bold'>{title}</h1>
       </div>
       <div className='w-full'>
-        <div className='text-balance my-1 opacity-80'>
+        <div className='text-pretty my-1 opacity-80'>
           {description}
         </div>
       </div>

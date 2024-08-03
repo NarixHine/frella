@@ -6,6 +6,7 @@ import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
 import { cookies } from 'next/headers'
 import getHandle from '@/utils/routing'
+import { track } from '@vercel/analytics'
 
 const xata = getXataClient()
 
@@ -14,11 +15,17 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
         const user = await getUserRec()
         await xata.db.frellas.create({ id, content, user, isPublic })
         cookies().delete('new-frella')
+        track('Frella created', {
+            userId: auth().userId,
+        })
         revalidatePath('/dashboard')
     }
     else {
         const frella = await authAndGetFrella({ id })
         await frella.update({ content, isPublic })
+        track('Frella updated', {
+            userId: auth().userId,
+        })
     }
 }
 

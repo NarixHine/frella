@@ -1,5 +1,5 @@
 import Embedder from '@/components/embedder'
-import Main from '@/components/main'
+import Main, { Article } from '@/components/main'
 import getUserProfile from '@/components/profile/actions'
 import { auth } from '@clerk/nextjs/server'
 import { Metadata } from 'next'
@@ -62,7 +62,7 @@ const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
         </div>
     </div>
 
-    return profileProps.src && <ul className='flex flex-col space-y-3 w-full'>
+    return profileProps.src && <ul className='flex flex-col space-y-3 mx-auto max-w-[600px]'>
         {
             frellas.map((frella) => (
                 <li key={frella.id} className='pt-5'>
@@ -77,9 +77,9 @@ const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
             <div ref={ref} className={'border-b-0 opacity-60 flex flex-col border-slate-900/10 bg-slate/30 border-1 rounded-lg p-5'}>
                 <Profile></Profile>
                 <div className={'w-full h-20 flex justify-center items-center'}>
-                        <hr className='flex-1'></hr>
-                        <div className='mx-3 opacity-30'>{more ? 'Loading ...' : 'The End'}</div>
-                        <hr className='flex-1'></hr>
+                    <hr className='flex-1'></hr>
+                    <div className='mx-3 opacity-30'>{more ? 'Loading ...' : 'The End'}</div>
+                    <hr className='flex-1'></hr>
                 </div>
             </div>
         </li>
@@ -92,7 +92,7 @@ export default async function EmbedPage() {
     const { handle } = await getUserProfile()
     const snippet = `${SNIPPET_1}${userId}${SNIPPET_2}`
     return <Main>
-        <article className='prose pt-5 min-w-full'>
+        <Article>
             <h1>
                 Embed Frella on Your Website
             </h1>
@@ -114,10 +114,10 @@ export default async function EmbedPage() {
             }}>
                 {snippet}
             </SyntaxHighlighter>
-            <p>
-                Preview:
-            </p>
-        </article>
+        </Article>
+        <p>
+            Preview:
+        </p>
         <Embedder></Embedder>
     </Main>
 }

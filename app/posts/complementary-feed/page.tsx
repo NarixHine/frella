@@ -1,4 +1,4 @@
-import Main from '@/components/main'
+import Main, { Article } from '@/components/main'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Step2 from './step2.png'
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Post() {
     return <Main>
-        <article className='prose pt-5 min-w-full'>
+        <Article>
             <h1>
                 Add a realtime microblogging feed to your website
             </h1>
@@ -22,10 +22,10 @@ export default function Post() {
                 <li><p><strong>Finally, </strong><a target="_blank" rel="noopener noreferrer nofollow" href="https://frella.me/dashboard/embed"><strong>grab your embedding code</strong></a><strong>.</strong> Copy and paste the HTML code or the React component automatically generated for you depending on your needs.</p></li>
             </ol>
             <p>It will look like this:</p>
-        </article>
+        </Article>
         <Embedder></Embedder>
-        <article>
+        <Article>
             <p>And that’s it. Happy microblogging!</p>
-        </article>
+        </Article>
     </Main >
 }

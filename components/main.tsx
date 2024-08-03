@@ -3,7 +3,7 @@
 import { HTMLAttributes, ReactNode } from 'react'
 import { use100vh } from 'react-div-100vh'
 
-export default function Main({ isCentered, fullHeight, ...props }: HTMLAttributes<HTMLDivElement> & {
+export default function Main({ isCentered, fullHeight, children, ...props }: HTMLAttributes<HTMLDivElement> & {
     isCentered?: boolean,
     fullHeight?: boolean
 }) {
@@ -16,7 +16,14 @@ export default function Main({ isCentered, fullHeight, ...props }: HTMLAttribute
             margin: '0 auto',
             padding: '1rem',
             ...(isCentered ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
-        }}
-        {...props}
-    ></main>
+            ...props
+        }}>
+        {children}
+    </main>
 }
+
+export const Article = ({ children }: { children: ReactNode }) => <div className='prose pt-5 grid grid-cols-1 min-w-full'>
+    <article>
+        {children}
+    </article>
+</div>

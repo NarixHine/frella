@@ -47,7 +47,7 @@ export default function Embedder() {
         </div>
     </div>
 
-    return profileProps.src && <ul className='flex flex-col space-y-3 w-full'>
+    return profileProps.src && <ul className='flex flex-col space-y-3 w-full mx-auto max-w-[600px]'>
         {
             frellas.map((frella) => (
                 <li key={frella.id} className='pt-5'>

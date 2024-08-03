@@ -16,10 +16,9 @@ export default function Main({ isCentered, fullHeight, children, ...props }: HTM
             margin: '0 auto',
             padding: '1rem',
             ...(isCentered ? { display: 'flex', alignItems: 'center', justifyContent: 'center' } : {}),
-            ...props
-        }}>
-        {children}
-    </main>
+        }}
+        {...props}
+    ></main>
 }
 
 export const Article = ({ children }: { children: ReactNode }) => <div className='prose pt-5 grid grid-cols-1 min-w-full'>

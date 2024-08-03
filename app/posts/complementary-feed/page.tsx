@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Post() {
     return <Main>
-        <article className='prose pt-5'>
+        <article className='prose pt-5 min-w-full'>
             <h1>
                 Add a realtime microblogging feed to your website
             </h1>

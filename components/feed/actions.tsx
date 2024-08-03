@@ -20,7 +20,6 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
         const frella = await authAndGetFrella({ id })
         await frella.update({ content, isPublic })
     }
-    revalidatePath('/dashboard')
 }
 
 export async function restoreNewFrella() {

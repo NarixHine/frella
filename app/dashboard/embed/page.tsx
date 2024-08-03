@@ -92,14 +92,16 @@ export default async function EmbedPage() {
     const { handle } = await getUserProfile()
     const snippet = `${SNIPPET_1}${userId}${SNIPPET_2}`
     return <Main>
-        <article className='prose pt-5'>
+        <article className='prose pt-5 min-w-full'>
             <h1>
                 Embed Frella on Your Website
             </h1>
             <p>
                 To embed Frella, simply add the following HTML to your website:
             </p>
-            <SyntaxHighlighter language='html' style={atomOneDark} wrapLongLines>
+            <SyntaxHighlighter language='html' style={atomOneDark} customStyle={{
+                maxWidth: '100%',
+            }}>
                 {`<iframe style="width: 100%; height: 600px;" src="https://${handle}-embed.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/"></iframe>`}
             </SyntaxHighlighter>
             <p>
@@ -107,7 +109,9 @@ export default async function EmbedPage() {
                 <br></br>
                 Make sure you have set up <code>@tanstack/react-query</code>, <code>Tailwind CSS</code> and <code>Tailwind Typography</code>.
             </p>
-            <SyntaxHighlighter language='jsx' style={atomOneDark} wrapLongLines>
+            <SyntaxHighlighter language='tsx' style={atomOneDark} customStyle={{
+                maxWidth: '100%',
+            }}>
                 {snippet}
             </SyntaxHighlighter>
             <p>

@@ -21,7 +21,7 @@ export default function Main({ isCentered, fullHeight, ...props }: HTMLAttribute
     ></main>
 }
 
-export const Article = ({ children }: { children: ReactNode }) => <div className='prose pt-5 grid grid-cols-1 min-w-full'>
+export const Article = ({ children }: { children: ReactNode }) => <div className='prose dark:prose-invert pt-5 grid grid-cols-1 min-w-full'>
     <article>
         {children}
     </article>

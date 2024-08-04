@@ -5,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 
 export default function Embedder() {
     const { data, isLoading, fetchNextPage } = useInfiniteQuery({
-        queryKey: ['frella'],
+        queryKey: ['frella', 'embedding'],
         queryFn: async ({ pageParam }) => {
             const { frellas, cursor, more } = await fetch(`/api/frellas/user_2k3mWhoQ4iCNwkmnzcTDrJ1JPfA/${pageParam}`).then((res) => res.json())
             return { frellas, cursor, more }

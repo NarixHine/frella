@@ -4,6 +4,7 @@ import Frella from '@/components/feed/frella'
 import Main from '@/components/main'
 import getUserProfile from '@/components/profile/actions'
 import { Metadata } from 'next'
+import getHandle from '@/utils/routing'
 
 export async function generateMetadata(
     { params }: {
@@ -12,11 +13,8 @@ export async function generateMetadata(
         }
     },
 ): Promise<Metadata> {
-    const { id } = params
-    const { user } = await retrieveFrella({ id })
-    const { name } = await getUserProfile({ userId: user!.userId })
     return {
-        title: `@${name}`,
+        title: `@${getHandle()}`,
     }
 }
 

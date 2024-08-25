@@ -17,7 +17,7 @@ export default function Feed({ frellas, more: initialMore, cursor }: { frellas: 
     const { data, isLoading, fetchNextPage } = useInfiniteQuery({
         queryKey: ['frellas', cursor],
         queryFn: async ({ pageParam }) => {
-            const refs = await loadFrellas({ cursor: pageParam })
+            const recs = await loadFrellas({ cursor: pageParam })
             return recs
         },
         initialPageParam: cursor,

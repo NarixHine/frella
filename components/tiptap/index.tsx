@@ -3,18 +3,12 @@
 import { Button, ButtonGroup } from '@nextui-org/react'
 import { useEditor, EditorContent, UseEditorOptions, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { AiOutlineBold, AiOutlineItalic, AiOutlineStrikethrough } from 'react-icons/ai'
-import { CiCircleList } from 'react-icons/ci'
-import { IoIosCode } from 'react-icons/io'
-import { PiCodeBlockLight } from 'react-icons/pi'
-import Link from '@tiptap/extension-link'
-import { TbBlockquote } from 'react-icons/tb'
-import { MdOutlineAddLink } from 'react-icons/md'
+import { PiTextB, PiTextItalic, PiTextStrikethrough, PiListDashes, PiCode, PiCodeBlockLight, PiLink, PiTextH, PiQuotes } from 'react-icons/pi'
 import { useCallback } from 'react'
 import Image from '@tiptap/extension-image'
 import FileHandler from '@tiptap-pro/extension-file-handler'
 import { uploadImage } from './actions'
-import { RxHeading } from 'react-icons/rx'
+import Link from '@tiptap/extension-link'
 
 const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean }) => {
   const handleImageUpload = (file: File, callback: (src: string) => void) => {
@@ -103,43 +97,43 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
         <Button
           onPress={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
           variant={editor.isActive('heading', { level: 2 }) ? 'shadow' : 'light'}
-          startContent={<RxHeading></RxHeading>}
+          startContent={<PiTextH></PiTextH>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleBold().run()}
           variant={editor.isActive('bold') ? 'shadow' : 'light'}
-          startContent={<AiOutlineBold></AiOutlineBold>}
+          startContent={<PiTextB></PiTextB>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleItalic().run()}
           variant={editor.isActive('italic') ? 'shadow' : 'light'}
-          startContent={<AiOutlineItalic></AiOutlineItalic>}
+          startContent={<PiTextItalic></PiTextItalic>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleStrike().run()}
           variant={editor.isActive('strike') ? 'shadow' : 'light'}
-          startContent={<AiOutlineStrikethrough></AiOutlineStrikethrough>}
+          startContent={<PiTextStrikethrough></PiTextStrikethrough>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleBlockquote().run()}
           variant={editor.isActive('blockquote') ? 'shadow' : 'light'}
-          startContent={<TbBlockquote></TbBlockquote>}
+          startContent={<PiQuotes></PiQuotes>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleBulletList().run()}
           variant={editor.isActive('bulletList') ? 'shadow' : 'light'}
-          startContent={<CiCircleList></CiCircleList>}
+          startContent={<PiListDashes></PiListDashes>}
           isIconOnly
         ></Button>
         <Button
           onPress={() => editor.chain().focus().toggleCode().run()}
           variant={editor.isActive('code') ? 'shadow' : 'light'}
-          startContent={<IoIosCode></IoIosCode>}
+          startContent={<PiCode></PiCode>}
           isIconOnly
         ></Button>
         <Button
@@ -151,7 +145,7 @@ const Tiptap = ({ isTight, ...props }: UseEditorOptions & { isTight?: boolean })
         <Button
           onPress={setLink}
           variant={editor.isActive('link') ? 'shadow' : 'light'}
-          startContent={<MdOutlineAddLink></MdOutlineAddLink>}
+          startContent={<PiLink></PiLink>}
           isIconOnly
         ></Button>
       </ButtonGroup>

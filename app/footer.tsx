@@ -1,7 +1,6 @@
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
-import { AiOutlineMail } from 'react-icons/ai'
-import { RiTwitterLine } from 'react-icons/ri'
+import { PiEnvelope, PiTwitterLogo } from 'react-icons/pi'
 
 export default function Footer() {
     return <footer className='font-mono max-w-96 w-4/5 my-4 opacity-50 mx-auto'>
@@ -14,27 +13,27 @@ export default function Footer() {
                 <Button size='sm' variant='solid' radius='sm' href={'/posts/complementary-feed'} as={Link} className='h-5 bg-primary-50/80 text-primary-600 w-full'>Integrate Frella with your website</Button>
             </div>
             <div className='flex mx-auto w-fit'>
-                    <Button
-                        size='sm'
-                        variant='light'
-                        radius='full'
-                        href='mailto:hello@frella.me'
-                        isIconOnly
-                        startContent={<AiOutlineMail></AiOutlineMail>}
-                        as={Link}
-                        className='text-lg text-primary'
-                    ></Button>
-                    <Button
-                        size='sm'
-                        variant='light'
-                        radius='full'
-                        href='https://twitter.com/leximory'
-                        isIconOnly
-                        startContent={<RiTwitterLine></RiTwitterLine>}
-                        as={Link}
-                        className='text-lg text-primary'
-                    ></Button>
-                </div>
+                <Button
+                    size='sm'
+                    variant='light'
+                    radius='full'
+                    href='mailto:hello@frella.me'
+                    isIconOnly
+                    startContent={<PiEnvelope></PiEnvelope>}
+                    as={Link}
+                    className='text-lg text-primary'
+                ></Button>
+                <Button
+                    size='sm'
+                    variant='light'
+                    radius='full'
+                    href='https://twitter.com/leximory'
+                    isIconOnly
+                    startContent={<PiTwitterLogo></PiTwitterLogo>}
+                    as={Link}
+                    className='text-lg text-primary'
+                ></Button>
+            </div>
         </div>
     </footer>
 }

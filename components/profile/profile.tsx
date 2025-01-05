@@ -1,6 +1,6 @@
 import { Avatar, Skeleton } from '@nextui-org/react'
 import Link from 'next/link'
-import { RxExternalLink } from 'react-icons/rx'
+import { PiArrowSquareOut } from 'react-icons/pi'
 
 export default function Profile({ src, handle, name, isLoading, isCompact, hideInstructions }: {
     src?: string
@@ -16,16 +16,16 @@ export default function Profile({ src, handle, name, isLoading, isCompact, hideI
                 <p>
                     Change your name, handle (numbers and letters only) & avatar in&nbsp;
                     <Link href={'/dashboard/profile'} className='text-nowrap'>
-                        account settings <RxExternalLink className='inline'></RxExternalLink>
+                        account settings <PiArrowSquareOut className='inline'></PiArrowSquareOut>
                     </Link>
                 </p>
                 <p>
                     <Link href={`https://${handle}.${process.env.NEXT_PUBLIC_BASE_DOMAIN}/`} target='_blank' className='font-mono font-semibold text-nowrap'>
-                        {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <RxExternalLink className='inline'></RxExternalLink>
+                        {handle}.{process.env.NEXT_PUBLIC_BASE_DOMAIN} <PiArrowSquareOut className='inline'></PiArrowSquareOut>
                     </Link>
                     <br></br>
                     <Link href={`/dashboard/embed`} target='_blank' className='font-mono font-semibold text-nowrap'>
-                        How to embed Frella <RxExternalLink className='inline'></RxExternalLink>
+                        How to embed Frella <PiArrowSquareOut className='inline'></PiArrowSquareOut>
                     </Link>
                 </p>
             </div>

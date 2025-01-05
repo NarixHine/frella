@@ -2,10 +2,8 @@
 
 import { Button } from '@nextui-org/react'
 import { useState } from 'react'
-import { CiEdit } from 'react-icons/ci'
-import { LiaSave } from 'react-icons/lia'
+import { PiPencil, PiFloppyDisk, PiGlobe, PiGlobeX } from 'react-icons/pi'
 import saveDescription, { toggleUserFeedVisibility } from './actions'
-import { MdPublic, MdPublicOff } from 'react-icons/md'
 import Tiptap from '../tiptap'
 
 export default function Description({ description: initialDescription, isEditable, isPublic: initialIsPublic }: {
@@ -38,7 +36,7 @@ export default function Description({ description: initialDescription, isEditabl
             }}
             variant='light'
             size='sm'
-            startContent={isEditing ? <LiaSave></LiaSave> : <CiEdit></CiEdit>}
+            startContent={isEditing ? <PiFloppyDisk></PiFloppyDisk> : <PiPencil></PiPencil>}
             isIconOnly
             className='text-lg rounded'
         ></Button>}
@@ -50,7 +48,7 @@ export default function Description({ description: initialDescription, isEditabl
             }}
             variant='light'
             size='sm'
-            startContent={isPublic ? <MdPublic /> : <MdPublicOff />}
+            startContent={isPublic ? <PiGlobe /> : <PiGlobeX />}
             isIconOnly
             className='text-lg rounded'
         ></Button>}

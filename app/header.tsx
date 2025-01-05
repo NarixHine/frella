@@ -8,7 +8,7 @@ import {
 } from '@nextui-org/navbar'
 import { Button } from '@nextui-org/react'
 import Link from 'next/link'
-import { AiOutlineLogin } from 'react-icons/ai'
+import { PiSignIn } from 'react-icons/pi'
 
 export default function Header() {
     const { userId } = auth()
@@ -26,7 +26,7 @@ export default function Header() {
                 userId
                     ? <UserButton userProfileUrl='/dashboard/profile'></UserButton>
                     : <Button as={Link} color='primary' variant='flat' isIconOnly href='/sign-in'>
-                        <AiOutlineLogin></AiOutlineLogin>
+                        <PiSignIn></PiSignIn>
                     </Button>
             }
         </NavbarContent>

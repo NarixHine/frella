@@ -9,12 +9,13 @@ import Profile from '@/components/profile/profile'
 import Description from '@/components/description/description'
 import { ReactNode } from 'react'
 import { Button, Divider } from '@nextui-org/react'
-import { BiLock } from 'react-icons/bi'
+import { PiLockBold } from 'react-icons/pi'
 import { FaReact } from 'react-icons/fa'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { Metadata } from 'next'
 import Link from 'next/link'
+import { pacifico } from '@/utils/fonts'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -64,7 +65,7 @@ export default function Home() {
 
   return <Main>
     <h1 className='font-extrabold text-balance text-center text-4xl md:text-5xl mt-16 mb-6 opacity-80 text-primary-900'>
-      Fragments of thoughts,
+      <span className={`${pacifico.className} font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent`}>Fragments</span> of thoughts,
       In your cyberspace
     </h1>
     <p className='text-center text-lg md:text-xl text-balance text-primary-900 opacity-70 mb-4'>
@@ -113,7 +114,7 @@ export default function Home() {
       <div className='flex space-y-3 flex-col md:flex-row md:space-x-3 md:space-y-0'>
         <div className='basis-2/3'>
           <Card title='Lock if you like.' description="If you don't share your subdomain with others, nobody will know it. You can make sure your content is private by locking them.">
-            <Button isIconOnly size='lg' color='primary' variant='bordered' startContent={<BiLock></BiLock>}></Button>
+            <Button isIconOnly size='lg' color='primary' variant='bordered' startContent={<PiLockBold></PiLockBold>}></Button>
           </Card>
         </div>
         <div className='basis-1/3'>

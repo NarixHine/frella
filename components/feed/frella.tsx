@@ -3,15 +3,11 @@
 import { useState } from 'react'
 import Profile from '../profile/profile'
 import { Button, Divider } from '@nextui-org/react'
-import { CiEdit } from 'react-icons/ci'
-import { LiaSave } from 'react-icons/lia'
+import { PiPencil, PiFloppyDisk, PiLink, PiGlobe, PiGlobeX, PiTrash } from 'react-icons/pi'
 import saveFrella, { deleteFrella, toggleFrellaVisibility } from './actions'
-import { IoMdLink } from 'react-icons/io'
-import { MdOutlinePublish, MdPublic, MdPublicOff } from 'react-icons/md'
 import Tiptap from '../tiptap'
 import { useDebounce } from 'use-debounce'
 import Cookies from 'js-cookie'
-import { RiDeleteBinLine } from 'react-icons/ri'
 
 export type FrellaProps = {
     id: string
@@ -77,7 +73,7 @@ export default function Frella({
                 isLoading={isSaving}
                 variant='light'
                 size='sm'
-                startContent={!isSaving && (isEditing ? (isCreatingNew ? <MdOutlinePublish></MdOutlinePublish> : <LiaSave></LiaSave>) : <CiEdit></CiEdit>)}
+                startContent={!isSaving && (isEditing ? (isCreatingNew ? <PiGlobe></PiGlobe> : <PiFloppyDisk></PiFloppyDisk>) : <PiPencil></PiPencil>)}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}
@@ -94,7 +90,7 @@ export default function Frella({
                 isLoading={isSaving}
                 variant='light'
                 size='sm'
-                startContent={!isSaving && (isPublic ? <MdPublic /> : <MdPublicOff />)}
+                startContent={!isSaving && (isPublic ? <PiGlobe /> : <PiGlobeX />)}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}
@@ -105,7 +101,7 @@ export default function Frella({
                 }}
                 variant='light'
                 size='sm'
-                startContent={<IoMdLink></IoMdLink>}
+                startContent={<PiLink></PiLink>}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}
@@ -119,7 +115,7 @@ export default function Frella({
                 }}
                 variant='light'
                 size='sm'
-                startContent={<RiDeleteBinLine></RiDeleteBinLine>}
+                startContent={<PiTrash></PiTrash>}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}

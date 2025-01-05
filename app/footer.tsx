@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { PiEnvelope, PiTwitterLogo } from 'react-icons/pi'
 
 export default function Footer() {
-    return <footer className='font-mono max-w-96 w-4/5 my-4 opacity-50 mx-auto'>
+    return <footer className='max-w-96 w-4/5 my-4 opacity-50 mx-auto'>
         <div className={`w-full`}>
             <div className='flex w-full space-x-1 mb-1'>
                 <Button size='sm' variant='solid' radius='sm' href='/posts/recover-the-fragments-in-our-lives' as={Link} className='h-5 bg-primary-200/30 text-primary-800 basis-2/3'>“Recover the Fragments”</Button>

@@ -10,7 +10,7 @@ import Description from '@/components/description/description'
 import { ReactNode } from 'react'
 import { Button } from '@nextui-org/button'
 import { Divider } from '@nextui-org/divider'
-import { PiLockBold } from 'react-icons/pi'
+import { PiCalendarStarFill, PiLockBold } from 'react-icons/pi'
 import { FaReact } from 'react-icons/fa'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
@@ -75,7 +75,7 @@ export default async function Home() {
     </p>
 
     <div className='flex'>
-      <Button size='lg' color='primary' className='mx-auto' as={Link} href='/sign-up'>
+      <Button size='lg' color='primary' className='mx-auto' startContent={<PiCalendarStarFill></PiCalendarStarFill>} as={Link} href='/sign-up'>
         Get Started
       </Button>
     </div>

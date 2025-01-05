@@ -2,7 +2,7 @@
 
 import { Button } from '@nextui-org/button'
 import { useState } from 'react'
-import { PiPencil, PiFloppyDisk, PiGlobe, PiGlobeX } from 'react-icons/pi'
+import { PiPencil, PiFloppyDisk, PiLockKeyOpen, PiLockKey } from 'react-icons/pi'
 import saveDescription, { toggleUserFeedVisibility } from './actions'
 import Tiptap from '../tiptap'
 
@@ -48,7 +48,7 @@ export default function Description({ description: initialDescription, isEditabl
             }}
             variant='light'
             size='sm'
-            startContent={isPublic ? <PiGlobe /> : <PiGlobeX />}
+            startContent={isPublic ? <PiLockKeyOpen /> : <PiLockKey />}
             isIconOnly
             className='text-lg rounded'
         ></Button>}

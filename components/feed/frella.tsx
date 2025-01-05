@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Profile from '../profile/profile'
 import { Button } from '@nextui-org/button'
 import { Divider } from '@nextui-org/divider'
-import { PiPencil, PiFloppyDisk, PiLink, PiGlobe, PiGlobeX, PiTrash, PiBoxArrowUp } from 'react-icons/pi'
+import { PiPencil, PiFloppyDisk, PiLink, PiLockKeyOpen, PiLockKey, PiTrash, PiBoxArrowUp } from 'react-icons/pi'
 import saveFrella, { deleteFrella, toggleFrellaVisibility } from './actions'
 import Tiptap from '../tiptap'
 import { useDebounce } from 'use-debounce'
@@ -91,7 +91,7 @@ export default function Frella({
                 isLoading={isSaving}
                 variant='light'
                 size='sm'
-                startContent={!isSaving && (isPublic ? <PiGlobe /> : <PiGlobeX />)}
+                startContent={!isSaving && (isPublic ? <PiLockKeyOpen /> : <PiLockKey />)}
                 isIconOnly
                 className='text-lg rounded'
             ></Button>}

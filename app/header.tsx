@@ -1,4 +1,3 @@
-import { ubuntu } from '@/utils/fonts'
 import { UserButton } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
 import {
@@ -14,10 +13,7 @@ export default async function Header() {
     const { userId } = await auth()
     return <Navbar position='sticky' isBordered isBlurred>
         <NavbarBrand className='space-x-2'>
-            <Link
-                className={`text-xl font-bold ${ubuntu.className}`}
-                href={userId ? '/dashboard' : '/'}
-            >
+            <Link href={userId ? '/dashboard' : '/'}>
                 Frella
             </Link>
         </NavbarBrand>

@@ -1,15 +1,15 @@
 import { headers } from 'next/headers'
 
-export default function getHandle() {
+export default async function getHandle() {
     // return 'hello'
-    const host = headers().get('host')
-    const tokens = host?.split('.')
+    const host = await headers()
+    const tokens = host.get('host')
     return tokens?.length === 3 ? tokens[0].split('-')[0] : undefined
 }
 
-export function checkIsEmbedding() {
+export async function checkIsEmbedding() {
     // return true
-    const host = headers().get('host')
-    const tokens = host?.split('.')
+    const host = await headers()
+    const tokens = host.get('host')
     return tokens?.length === 3 ? tokens[0].endsWith('-embed') : false
 }

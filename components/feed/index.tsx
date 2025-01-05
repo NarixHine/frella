@@ -17,8 +17,8 @@ export default async function SSRFeed() {
 
     const { frellas, cursor, more } = await loadInitialFrellas(await getUserIdConfigToProceed())
 
-    return isPublic || !getHandle() ? <Feed cursor={cursor} more={more} frellas={
-        (getHandle() ? [] : [{
+    return isPublic || !(await getHandle()) ? <Feed cursor={cursor} more={more} frellas={
+        (await getHandle() ? [] : [{
             id: crypto.randomUUID(),
             ...(await restoreNewFrella()),
             isEditable: true,

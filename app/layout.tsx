@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -23,7 +23,7 @@ export default function RootLayout({
     <body className={jost.className}>
       <Analytics></Analytics>
       <Providers>
-        <div className={`flex flex-col w-full ${checkIsEmbedding() ? '' : 'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#2D2E2F_1px,transparent_1px)] [background-size:20px_20px]'}`}>
+        <div className={`flex flex-col w-full ${await checkIsEmbedding() ? '' : 'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#2D2E2F_1px,transparent_1px)] [background-size:20px_20px]'}`}>
           {!getHandle() && <Header></Header>}
           {children}
           {!getHandle() && <Footer></Footer>}

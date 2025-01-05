@@ -5,8 +5,8 @@ import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = { title: 'Dashboard' }
 
-export default function Dashboard() {
-    if (getHandle()) {
+export default async function Dashboard() {
+    if (await getHandle()) {
         notFound()
     }
     return <Panel />

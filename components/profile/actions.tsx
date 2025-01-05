@@ -34,6 +34,6 @@ export async function getUserFromHandle({ handle }: {
 }
 
 export async function getUserIdConfigToProceed() {
-    const handle = getHandle()
+    const handle = await getHandle()
     return handle ? { userId: (await getUserFromHandle({ handle })).id } : undefined
 }

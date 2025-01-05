@@ -57,19 +57,20 @@ export async function loadInitialFrellas({ userId }: { userId?: string | null } 
 
     const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
         'user.userId': userId,
-        ...(getHandle() ? { isPublic: true } : {})
+        ...(await getHandle() ? { isPublic: true } : {})
     }).getPaginated({
         pagination: {
             size: 5
         }
     })
+    const handle = await getHandle()
     return {
         frellas: records.map(({ id, content, isPublic, xata }) => ({
             id,
             content,
             isPublic,
             date: xata.createdAt.toDateString(),
-            isEditable: !getHandle(),
+            isEditable: !handle,
             isEditing: false,
         })),
         cursor: meta.page.cursor,
@@ -84,13 +85,14 @@ export async function loadFrellas({ cursor }: { cursor?: string }) {
             after: cursor
         }
     })
+    const handle = await getHandle()
     return {
         frellas: records.map(({ id, content, isPublic, xata }) => ({
             id,
             content,
             isPublic,
             date: xata.createdAt.toDateString(),
-            isEditable: !getHandle(),
+            isEditable: !handle,
             isEditing: false,
         })),
         cursor: meta.page.cursor,

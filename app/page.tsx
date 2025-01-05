@@ -20,7 +20,7 @@ import { pacifico } from '@/utils/fonts'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: getHandle() ? `@${getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
+    title: (await getHandle()) ? `@${await getHandle()} | Frella` : `Frella - Fragments of thoughts, in your cyberspace`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!)
   }
 }
@@ -32,12 +32,12 @@ const profile = {
 }
 
 export default async function Home() {
-  if (checkIsEmbedding()) {
+  if (await checkIsEmbedding()) {
     return <Main fullHeight>
       <SSRFeed />
     </Main>
   }
-  else if (getHandle()) {
+  else if (await getHandle()) {
     return <Panel />
   }
   else if ((await auth()).userId) {

@@ -4,12 +4,12 @@ import { getXataClient } from '@/lib/xata'
 const xata = getXataClient()
 
 export async function GET(req: Request, { params }: {
-    params: {
+    params: Promise<{
         userId: string
         cursor: string
-    }
+    }>
 }) {
-    const { userId, cursor } = params
+    const { userId, cursor } = await params
     const { src, handle, name } = await getUserProfile({ userId })
     const { records, meta } = await xata.db.frellas.select(['user.userId', 'content', 'isPublic']).sort('xata.createdAt', 'desc').filter({
         'user.userId': userId,

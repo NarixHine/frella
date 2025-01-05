@@ -1,14 +1,18 @@
 import getHandle from '@/utils/routing'
 import { auth, clerkClient } from '@clerk/nextjs/server'
 
-export default async function getUserProfile({ userId = auth().userId }: {
+export default async function getUserProfile({ userId }: {
     userId?: string | null
 } = {}) {
+    const loggedInUserId = (await auth()).userId
+    if (!userId) {
+        userId = loggedInUserId
+    }
     if (!userId) {
         throw new Error('userId is required')
     }
 
-    const user = await clerkClient.users.getUser(userId)
+    const user = await (await clerkClient()).users.getUser(userId)
     return {
         src: user.imageUrl,
         name: user.fullName,
@@ -19,7 +23,7 @@ export default async function getUserProfile({ userId = auth().userId }: {
 export async function getUserFromHandle({ handle }: {
     handle: string
 }) {
-    const { data } = await clerkClient.users.getUserList({ username: [handle] })
+    const { data } = await (await clerkClient()).users.getUserList({ username: [handle] })
     const [user] = data
     return {
         id: user.id,

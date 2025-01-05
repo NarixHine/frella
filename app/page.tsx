@@ -8,7 +8,8 @@ import Feed from '@/components/feed/feed'
 import Profile from '@/components/profile/profile'
 import Description from '@/components/description/description'
 import { ReactNode } from 'react'
-import { Button, Divider } from '@nextui-org/react'
+import { Button } from '@nextui-org/button'
+import { Divider } from '@nextui-org/divider'
 import { PiLockBold } from 'react-icons/pi'
 import { FaReact } from 'react-icons/fa'
 import SyntaxHighlighter from 'react-syntax-highlighter'
@@ -30,7 +31,7 @@ const profile = {
   handle: 'hello'
 }
 
-export default function Home() {
+export default async function Home() {
   if (checkIsEmbedding()) {
     return <Main fullHeight>
       <SSRFeed />
@@ -39,7 +40,7 @@ export default function Home() {
   else if (getHandle()) {
     return <Panel />
   }
-  else if (auth().userId) {
+  else if ((await auth()).userId) {
     redirect('/dashboard')
   }
 
@@ -64,8 +65,8 @@ export default function Home() {
   )
 
   return <Main>
-    <h1 className='font-extrabold text-balance text-center text-4xl md:text-5xl mt-16 mb-6 opacity-80 text-primary-900'>
-      <span className={`${pacifico.className} font-extrabold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent`}>Fragments</span> of thoughts,
+    <h1 className='font-extrabold text-balance text-center text-4xl md:text-5xl mt-16 mb-6 opacity-80 text-primary-900 leading-relaxed'>
+      <span className={`${pacifico.className} font-extrabold bg-gradient-to-r from-amber-500 tracking-normal to-pink-500 bg-clip-text text-transparent`}>Fragments</span> of thoughts,
       In your cyberspace
     </h1>
     <p className='text-center text-lg md:text-xl text-balance text-primary-900 opacity-70 mb-4'>

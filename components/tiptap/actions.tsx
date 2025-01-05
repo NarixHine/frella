@@ -7,7 +7,7 @@ import { auth } from '@clerk/nextjs/server'
 const xata = getXataClient()
 
 export async function uploadImage({ base64Content, mediaType }: { base64Content: string, mediaType: string }) {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) {
         throw new Error('Unauthorized')
     }

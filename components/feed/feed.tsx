@@ -1,6 +1,8 @@
 'use client'
 
-import { Divider, ScrollShadow, Spinner } from '@nextui-org/react'
+import { Divider } from '@nextui-org/divider'
+import { ScrollShadow } from '@nextui-org/scroll-shadow'
+import { Spinner } from '@nextui-org/spinner'
 import Frella, { FrellaProps } from './frella'
 import { useEffect, useRef } from 'react'
 import Profile from '../profile/profile'

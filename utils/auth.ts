@@ -3,7 +3,11 @@ import { auth } from '@clerk/nextjs/server'
 
 const xata = getXataClient()
 
-export async function getUserRec({ userId = auth().userId }: { userId?: string | null } = {}) {
+export async function getUserRec({ userId }: { userId?: string | null } = {}) {
+    const loggedInUserId = (await auth()).userId
+    if (!userId) {
+        userId = loggedInUserId
+    }
     if (!userId) {
         throw new Error('Unauthorized')
     }
@@ -28,7 +32,7 @@ export async function getUserRec({ userId = auth().userId }: { userId?: string |
 }
 
 export default async function authAndGetFrella({ id }: { id: string }) {
-    const { userId } = auth()
+    const { userId } = await auth()
     if (!userId) {
         throw new Error('Unauthorized')
     }

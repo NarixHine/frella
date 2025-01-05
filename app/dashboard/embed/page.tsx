@@ -88,7 +88,7 @@ const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
 `
 
 export default async function EmbedPage() {
-    const { userId } = auth()
+    const { userId } = await auth()
     const { handle } = await getUserProfile()
     const snippet = `${SNIPPET_1}${userId}${SNIPPET_2}`
     return <Main>

@@ -2,7 +2,7 @@
 
 import Denial from '@/components/denial'
 import Main from '@/components/main'
-import { Button } from '@nextui-org/react'
+import { Button } from '@nextui-org/button'
 
 export default function NotFound({
     reset,

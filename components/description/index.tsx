@@ -1,6 +1,6 @@
 import Description from './description'
 import { getUserRec } from '@/utils/auth'
-import { Skeleton } from '@nextui-org/react'
+import { Skeleton } from '@nextui-org/skeleton'
 import getHandle from '@/utils/routing'
 import { getUserIdConfigToProceed } from '../profile/actions'
 

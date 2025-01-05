@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@nextui-org/react'
+import { Button } from '@nextui-org/button'
 import { useState } from 'react'
 import { PiPencil, PiFloppyDisk, PiGlobe, PiGlobeX } from 'react-icons/pi'
 import saveDescription, { toggleUserFeedVisibility } from './actions'

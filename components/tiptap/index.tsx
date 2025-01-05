@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, ButtonGroup } from '@nextui-org/react'
+import { Button, ButtonGroup } from '@nextui-org/button'
 import { useEditor, EditorContent, UseEditorOptions, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { PiTextB, PiTextItalic, PiTextStrikethrough, PiListDashes, PiCode, PiCodeBlockLight, PiLink, PiTextH, PiQuotes } from 'react-icons/pi'

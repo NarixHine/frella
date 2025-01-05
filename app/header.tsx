@@ -6,12 +6,12 @@ import {
     NavbarContent,
     Navbar,
 } from '@nextui-org/navbar'
-import { Button } from '@nextui-org/react'
+import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import { PiSignIn } from 'react-icons/pi'
 
-export default function Header() {
-    const { userId } = auth()
+export default async function Header() {
+    const { userId } = await auth()
     return <Navbar position='sticky' isBordered isBlurred>
         <NavbarBrand className='space-x-2'>
             <Link

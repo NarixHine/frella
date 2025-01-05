@@ -6,24 +6,18 @@ import getUserProfile from '@/components/profile/actions'
 import { Metadata } from 'next'
 import getHandle from '@/utils/routing'
 
-export async function generateMetadata(
-    { params }: {
-        params: {
-            id: string
-        }
-    },
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
     return {
         title: `@${getHandle()}`,
     }
 }
 
 export default async function FrellaPage({ params }: {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }) {
-    const { id } = params
+    const { id } = await params
     const { content, user, isPublic, xata } = await retrieveFrella({ id })
     const profile = await getUserProfile({ userId: user!.userId })
     return <Main>

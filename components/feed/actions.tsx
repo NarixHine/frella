@@ -4,7 +4,7 @@ import authAndGetFrella, { getUserRec } from '@/utils/auth'
 import { revalidatePath } from 'next/cache'
 import { getXataClient } from '@/lib/xata'
 import { auth } from '@clerk/nextjs/server'
-import { cookies } from 'next/headers'
+import { cookies as nextCookies } from 'next/headers'
 import getHandle from '@/utils/routing'
 import { track } from '@vercel/analytics/server'
 
@@ -14,9 +14,10 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
     if (createNew) {
         const user = await getUserRec()
         await xata.db.frellas.create({ id, content, user, isPublic })
-        cookies().delete('new-frella')
+        const cookies = await nextCookies()
+        cookies.delete('new-frella')
         track('Frella created', {
-            userId: auth().userId,
+            userId: (await auth()).userId,
         })
         revalidatePath('/dashboard')
     }
@@ -24,13 +25,14 @@ export default async function saveFrella({ id, content, isPublic, createNew }: {
         const frella = await authAndGetFrella({ id })
         await frella.update({ content, isPublic })
         track('Frella updated', {
-            userId: auth().userId,
+            userId: (await auth()).userId,
         })
     }
 }
 
 export async function restoreNewFrella() {
-    const newFrella = cookies().get('new-frella')
+    const cookies = await nextCookies()
+    const newFrella = cookies.get('new-frella')
     if (newFrella && newFrella.value !== '') {
         return JSON.parse(newFrella.value)
     }
@@ -44,7 +46,11 @@ export async function toggleFrellaVisibility({ id, isPublic }: { id: string, isP
     await frella.update({ isPublic })
 }
 
-export async function loadInitialFrellas({ userId = auth().userId }: { userId?: string | null } = {}) {
+export async function loadInitialFrellas({ userId }: { userId?: string | null } = {}) {
+    const loggedInUserId = (await auth()).userId
+    if (!userId) {
+        userId = loggedInUserId
+    }
     if (!userId) {
         throw new Error('User not found')
     }

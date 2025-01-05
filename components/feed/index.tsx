@@ -8,7 +8,7 @@ import { getUserIdConfigToProceed } from '../profile/actions'
 
 export default async function SSRFeed() {
     const { isPublic, userId } = await getUserRec(await getUserIdConfigToProceed())
-    const user = await clerkClient.users.getUser(userId!)
+    const user = await (await clerkClient()).users.getUser(userId!)
     const profile = {
         src: user?.imageUrl!,
         name: user?.fullName,

@@ -8,11 +8,12 @@ import {
 import { Button } from '@nextui-org/button'
 import Link from 'next/link'
 import { PiSignIn } from 'react-icons/pi'
+import { pacifico } from '@/utils/fonts'
 
 export default async function Header() {
     const { userId } = await auth()
     return <Navbar position='sticky' isBordered isBlurred>
-        <NavbarBrand className='space-x-2'>
+        <NavbarBrand className={`${pacifico.className} space-x-2`}>
             <Link href={userId ? '/dashboard' : '/'}>
                 Frella
             </Link>

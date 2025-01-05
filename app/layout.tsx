@@ -19,14 +19,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const handle = await getHandle()
   return <html lang='en'>
     <body className={jost.className}>
       <Analytics></Analytics>
       <Providers>
         <div className={`flex flex-col w-full ${await checkIsEmbedding() ? '' : 'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#2D2E2F_1px,transparent_1px)] [background-size:20px_20px]'}`}>
-          {!getHandle() && <Header></Header>}
+          {!handle && <Header></Header>}
           {children}
-          {!getHandle() && <Footer></Footer>}
+          {!handle && <Footer></Footer>}
         </div>
       </Providers>
     </body>

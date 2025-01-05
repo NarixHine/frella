@@ -8,7 +8,7 @@ import getHandle from '@/utils/routing'
 
 export async function generateMetadata(): Promise<Metadata> {
     return {
-        title: `@${getHandle()}`,
+        title: `@${await getHandle()}`,
     }
 }
 

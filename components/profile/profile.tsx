@@ -13,8 +13,8 @@ export default function Profile({ src, handle, name, isLoading, isCompact, hideI
 }) {
     return <>
         {
-            !isCompact && !hideInstructions && <div className='opacity-40 mb-5 text-balance text-sm space-y-2'>
-                <p>
+            !isCompact && !hideInstructions && <div className='opacity-50 mb-5 text-balance text-sm space-y-2'>
+                <p className={'font-semibold'}>
                     Change your name, handle (numbers and letters only) & avatar in&nbsp;
                     <Link href={'/dashboard/profile'} className='text-nowrap'>
                         account settings <PiArrowSquareOut className='inline'></PiArrowSquareOut>

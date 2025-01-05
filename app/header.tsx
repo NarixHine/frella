@@ -13,8 +13,8 @@ import { pacifico } from '@/utils/fonts'
 export default async function Header() {
     const { userId } = await auth()
     return <Navbar position='sticky' isBordered isBlurred>
-        <NavbarBrand className={`${pacifico.className} text-xl bg-gradient-to-r from-amber-500 tracking-normal to-pink-500 bg-clip-text text-transparent space-x-2`}>
-            <Link href={userId ? '/dashboard' : '/'}>
+        <NavbarBrand className={`${pacifico.className} text-xl space-x-2`}>
+            <Link href={userId ? '/dashboard' : '/'} className='bg-gradient-to-r from-amber-500 tracking-normal to-pink-500 bg-clip-text text-transparent'>
                 Frella
             </Link>
         </NavbarBrand>

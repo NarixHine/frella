@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 const getHost = async () => {
     const host = (await headers()).get('host')!
     const tokens = host.split('.')
+    console.log(tokens)
     return tokens.length === 3 ? tokens[0].split('-')[0] : undefined
 }
 

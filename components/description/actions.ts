@@ -8,7 +8,6 @@ export default async function saveDescription({ description }: {
 }) {
     const user = await getUserRec()
     await user.update({ description })
-    revalidatePath('/dashboard')
 }
 
 export async function toggleUserFeedVisibility({ isPublic }: { isPublic: boolean }) {

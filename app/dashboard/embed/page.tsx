@@ -20,7 +20,7 @@ export default function Embedder() {
     const { data, isLoading, fetchNextPage } = useInfiniteQuery({
         queryKey: ['frella'],
         queryFn: async ({ pageParam }) => {
-            const { frellas, cursor, more } = await fetch(\`/api/frellas/`
+            const { frellas, cursor, more } = await fetch(\`https://frella.me/api/frellas/`
 
 const SNIPPET_2 = `/\${pageParam}\`).then((res) => res.json())
             return { frellas, cursor, more }

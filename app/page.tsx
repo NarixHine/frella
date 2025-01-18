@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const profile = {
-  src: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ2l0aHViL2ltZ18yazNtV2wxZWZpNU9xUkZIbE9NSzlJTjVMdXIifQ',
+  src: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvdXBsb2FkZWQvaW1nXzJyZlZ3SUVMYlBVT1JDUjhKaWNtU0toS3B0USJ9',
   name: 'Narix Hine',
   handle: 'hello'
 }
